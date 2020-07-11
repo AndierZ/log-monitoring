@@ -1,0 +1,5 @@
+{
+  "mode" : "historical",
+  "log_files": ["/Users/Piggie/projects/log-monitoring/src/main/resources/test/sample_csv.txt"],
+  "consumer_addresses": ["localhost:12088"]
+}

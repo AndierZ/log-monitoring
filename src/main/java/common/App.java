@@ -7,5 +7,7 @@ public abstract class App {
         this.context = context;
     }
 
-    abstract void start();
+    protected abstract void start() throws Exception;
+
+    protected abstract void shutdown() throws Exception;
 }

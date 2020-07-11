@@ -42,3 +42,5 @@ Improvements:
 		- Leader election
 		- Replay on reconnect
 	Manage the apps using dockers and kubernetes
+        Manage config files separately
+        Use flat buffer
