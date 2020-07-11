@@ -28,7 +28,7 @@ public class ConsoleAlertingApp extends App {
         while(true) {
             Socket socket = this.serverSocket.accept();
             MessageProcessingThread t = new MessageProcessingThread(socket);
-            t.addHandler(new LogEntryHandler());
+            t.addHandler(new LogEntryHandler(context));
             executorService.submit(t);
         }
     }

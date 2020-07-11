@@ -1,11 +1,17 @@
 package msgs;
 
-import msgs.MessageParser;
+import common.Context;
 
-public interface MessageHandler<T extends MessageParser> {
+public abstract class MessageHandler<T extends MessageParser> {
 
-    void handle(T parser);
+    protected final Context context;
 
-    int getMessageType();
+    public MessageHandler(Context context) {
+        this.context = context;
+    }
+
+    public abstract void handle(T parser);
+
+    public abstract int getMessageType();
 
 }

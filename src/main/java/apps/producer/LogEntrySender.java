@@ -20,7 +20,7 @@ public class LogEntrySender implements MessageSender {
                 headers.put(tokens[i], i);
             }
         } else {
-            long timestamp = Long.valueOf(tokens[headers.get("date")]);
+            long timestamp = Long.valueOf(tokens[headers.get("date")]) * 1000;
             String section = tokens[headers.get("request")].split(" ")[1].split("\\/")[1];
             this.logEntryBuilder.newMsg().setTimestamp(timestamp).setSection(section).send(dataOutputStream);
         }
