@@ -1,4 +1,4 @@
-Producer consumer model
+Producer apps.consumer model
 	-	Multiple producers
 	-	Multiple consumers with leader election? One primary instance + multiple secondary instances
 	-	Binary message over tcp using flat but?
@@ -13,25 +13,22 @@ Steps
 Define the data model for inputs and outputs
 Write producers, generate inputs, send over TCP
 	read config to figure out which host:port to connect to
-	Define a historical producer which provide a context and timer
-Write consumer, consumer inputs over TCP, send to a output sink (write to console log)
+	Define a historical apps.producer which provide a context and timer
+Write apps.consumer, apps.consumer inputs over TCP, send to a output sink (write to console log)
 	take list of producers to expect
 Introduce config to specify how these components should be instantiated
 They should be one instance per thread. and know how to connect to each other
 Use flat buf for message marshalling
 
 
-
-Add logic for producer to reconnect
-
+Remove logic around hist/realtime context
+Make message building and parser more modulized
+Introduce heartbeat
 Add core functionality for alerting and stats
 Add unit tests
-Add a hot backup consumer over TCP?
-Add readme
+Add logic for apps.producer to reconnect
+Add docs
 
-library
-l4j
-parsing csv?
 
 
 

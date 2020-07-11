@@ -3,7 +3,7 @@ package common;
 
 import org.json.simple.JSONObject;
 
-public abstract class Context {
+public class Context {
 
     protected final JSONObject config;
 
