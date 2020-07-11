@@ -7,20 +7,17 @@ import java.nio.charset.StandardCharsets;
 
 public class LogEntryBuilder {
 
-    public static int MSG_TYPE = 2;
-    public static int MAX_LEN = 1024;
-
     private boolean timestampSet;
     private boolean sectionSet;
-    private final ByteBuffer buf = ByteBuffer.allocate(MAX_LEN);
+    private final ByteBuffer buf = ByteBuffer.allocate(LogEntryMeta.MAX_LEN);
 
     public LogEntryBuilder newMsg() {
         timestampSet = false;
         sectionSet = false;
         buf.clear();
         // Initial message length: 4 for MSG_LEN. 4 for MSG_TYPE
-        buf.putInt(8);
-        buf.putInt(MSG_TYPE);
+        buf.putInt(4 + 4);
+        buf.putInt(LogEntryMeta.MSG_TYPE);
         return this;
     }
 

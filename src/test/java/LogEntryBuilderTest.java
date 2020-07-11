@@ -1,4 +1,5 @@
 import msgs.LogEntryBuilder;
+import msgs.LogEntryMeta;
 import msgs.LogEntryParser;
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,7 +30,7 @@ public class LogEntryBuilderTest {
         LogEntryParser parser = new LogEntryParser();
         parser.wrap(buf);
 
-        Assert.assertEquals(LogEntryBuilder.MSG_TYPE, parser.getMsgType());
+        Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
         // 4 - Msg len
         // 4 - Msg type
         // 8 - Timestamp
@@ -40,7 +41,7 @@ public class LogEntryBuilderTest {
         Assert.assertEquals("api", parser.getSection());
 
         // Reading multiple times should be ok
-        Assert.assertEquals(LogEntryBuilder.MSG_TYPE, parser.getMsgType());
+        Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
         Assert.assertEquals(4 + 4 + 8 + 4 + 3, parser.getMsgLen());
         Assert.assertEquals(100, parser.getTimestamp());
         Assert.assertEquals("api", parser.getSection());
@@ -53,13 +54,13 @@ public class LogEntryBuilderTest {
         buf = createBuffer(this.out.getBytes());
         parser.wrap(buf);
 
-        Assert.assertEquals(LogEntryBuilder.MSG_TYPE, parser.getMsgType());
+        Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
         Assert.assertEquals(4 + 4 + 8 + 4 + 6, parser.getMsgLen());
         Assert.assertEquals(200, parser.getTimestamp());
         Assert.assertEquals("report", parser.getSection());
 
         // Reading multiple times should be ok
-        Assert.assertEquals(LogEntryBuilder.MSG_TYPE, parser.getMsgType());
+        Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
         Assert.assertEquals(4 + 4 + 8 + 4 + 6, parser.getMsgLen());
         Assert.assertEquals(200, parser.getTimestamp());
         Assert.assertEquals("report", parser.getSection());

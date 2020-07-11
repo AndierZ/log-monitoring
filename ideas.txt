@@ -21,10 +21,15 @@ They should be one instance per thread. and know how to connect to each other
 Use flat buf for message marshalling
 
 
-Remove logic around hist/realtime context
-Make message building and parser more modulized
+Done - Remove logic around hist/realtime context
+
 Introduce heartbeat
 Add core functionality for alerting and stats
+
+
+Make message building and parser more modulized
+Make context actually useful - get time or intput/output stream from it
+
 Add unit tests
 Add logic for apps.producer to reconnect
 Add docs
