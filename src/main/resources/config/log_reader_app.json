@@ -1,5 +1,5 @@
 {
   "log_files": ["test/sample_csv.txt"],
   "consumer_addresses": ["localhost:12088"],
-  "use_resource_file": true
+  "log_files_in_resource": true
 }

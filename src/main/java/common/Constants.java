@@ -10,7 +10,7 @@ public class Constants {
     public final static String LOG_FILES = "log_files";
     public final static String CONSUMER_ADDRESSES = "consumer_addresses";
     public final static String PORT = "port";
-    public final static String USE_RESOURCE_FILE = "use_resource_file";
+    public final static String LOG_FILES_IN_RESOURCE = "log_files_in_resource";
     public final static String MONITOR_LIST = "monitor_list";
     public final static String MAX_DISPLAY_COUNT = "max_display_count";
     public final static String INTERVAL_SECS = "interval_secs";

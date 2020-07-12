@@ -22,7 +22,7 @@ public class LogReaderApp extends App {
         JSONObject config = context.getConfig();
         JSONArray logFiles = (JSONArray) config.get(Constants.LOG_FILES);
         JSONArray consumerAddresses = (JSONArray) config.get(Constants.CONSUMER_ADDRESSES);
-        boolean useResourceFile = (boolean) config.getOrDefault(Constants.USE_RESOURCE_FILE, false);
+        boolean useResourceFile = (boolean) config.getOrDefault(Constants.LOG_FILES_IN_RESOURCE, false);
 
         for(int i=0; i< logFiles.size(); i++) {
             String filePath;
