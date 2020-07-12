@@ -32,9 +32,8 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
             entries.sort((a, b) -> b.getValue() - a.getValue());
 
             sb.setLength(0);
-            sb.append("Time: ")
-                    .append(new Date(timestamp))
-                    .append(". ");
+            sb.append(new Date(timestamp));
+            sb.append(". ");
 
             if (entries.isEmpty()) {
                 sb.append("No data");
@@ -44,11 +43,11 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
                 sb.append(maxDisplayCount);
                 sb.append(": ");
                 for(int i = 0; i<Math.min(maxDisplayCount, entries.size()); i++) {
-                    sb.append(" (")
-                            .append(entries.get(i).getKey())
-                            .append(", ")
-                            .append(entries.get(i).getValue())
-                            .append("),");
+                    sb.append(" (");
+                    sb.append(entries.get(i).getKey());
+                    sb.append(", ");
+                    sb.append(entries.get(i).getValue());
+                    sb.append("),");
                 }
             }
 

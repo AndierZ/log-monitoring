@@ -3,9 +3,9 @@ package monitoring;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
-public class TotalTrafficMonitor extends RollingStatsMonitor {
+public class TotalHitsMonitor extends RollingStatsMonitor {
 
-    public TotalTrafficMonitor(JSONObject config) {
+    public TotalHitsMonitor(JSONObject config) {
         super(config);
     }
 
@@ -15,8 +15,13 @@ public class TotalTrafficMonitor extends RollingStatsMonitor {
     }
 
     @Override
-    protected boolean activateAlert() {
-        return counter.getAverage() > threshold;
+    protected double getCounterVal() {
+        return counter.getAverage();
+    }
+
+    @Override
+    protected String formatCounterVal() {
+        return "hits = " + (int) getCounterVal();
     }
 
     @Override

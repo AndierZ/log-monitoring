@@ -74,7 +74,6 @@ public class LogEntryBuilderTest {
         Assert.assertEquals("report", parser.getSection());
 
         this.out.reset();
-
     }
 
     private ByteBuffer createBuffer(List<Byte> bytes) {

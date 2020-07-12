@@ -28,6 +28,10 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
         this.counter = new TimeseriesCircularCounter(period, interval);
     }
 
+    abstract protected double getCounterVal();
+
+    abstract protected String formatCounterVal();
+
     public void onMsg(LogEntryParser parser) {
         long timestamp = parser.getTimestamp();
         boolean updated = increment(parser);
@@ -36,16 +40,15 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
         }
 
         if (this.counter.isReady()) {
-            if (activateAlert()) {
-                if (this.lastActivationTime == -1) {
+            if (getCounterVal() >= threshold) {
+                if (this.lastActivationTime == 0) {
                     sb.setLength(0);
-                    sb.append("Time: ");
                     sb.append(new Date(timestamp));
                     sb.append(". ");
                     if (key != null) sb.append(key).append(" - ");
                     sb.append(alertName());
-                    sb.append(" generated an alert - hits = ");
-                    sb.append((int) this.counter.getAverage());
+                    sb.append(" generated an alert - ");
+                    sb.append(formatCounterVal());
                     sb.append(", triggered at time ").append(new Date(timestamp));
                     output(sb.toString());
                     this.lastActivationTime = timestamp;
@@ -54,16 +57,15 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
                 // Reset alert if traffic has dropped and it's been more than one second
                 if (this.lastActivationTime > 0 && timestamp - lastActivationTime > deadband) {
                     sb.setLength(0);
-                    sb.append("Time: ");
                     sb.append(new Date(timestamp));
                     sb.append(". ");
                     if (key != null) sb.append(key).append(" - ");
                     sb.append(alertName());
-                    sb.append(" alert recovered - hits = ");
-                    sb.append((int) this.counter.getAverage());
+                    sb.append(" alert recovered - ");
+                    sb.append(formatCounterVal());
                     sb.append(", recovered at time ").append(new Date(timestamp));
                     output(sb.toString());
-                    this.lastActivationTime = -1;
+                    this.lastActivationTime = 0;
                 }
             }
         }

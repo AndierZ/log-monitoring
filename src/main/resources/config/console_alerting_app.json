@@ -6,7 +6,7 @@
         "interval_secs" : 10,
         "max_display_count" : 3
       },
-      "monitoring.TotalTrafficMonitor": {
+      "monitoring.TotalHitsMonitor": {
         "period_secs" : 120,
         "interval_secs" : 1,
         "threshold" : 10,
@@ -18,7 +18,7 @@
         "threshold" : 1048576,
         "deadband_secs" : 1
       },
-      "monitoring.TotalTrafficByUserMonitor": {
+      "monitoring.TotalHitsByUserMonitor": {
         "period_secs" : 10,
         "interval_secs" : 1,
         "threshold" : 100,

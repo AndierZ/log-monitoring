@@ -10,13 +10,17 @@ public class TotalBytesMonitor extends RollingStatsMonitor {
     }
 
     @Override
-    protected boolean increment(LogEntryParser parser) {
-        return counter.increment(parser.getTimestamp(), parser.getBytes());
+    protected double getCounterVal() {
+        return counter.getTotal();
+    }
+
+    protected String formatCounterVal() {
+        return "traffic = " + getCounterVal() / 1024 / 1024 + " Mb";
     }
 
     @Override
-    protected boolean activateAlert() {
-        return counter.getTotal() > threshold;
+    protected boolean increment(LogEntryParser parser) {
+        return counter.increment(parser.getTimestamp(), parser.getBytes());
     }
 
     @Override

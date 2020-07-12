@@ -16,11 +16,6 @@ public class SectionHitMonitor extends FixedStatsMonitor {
     }
 
     @Override
-    protected boolean activateAlert() {
-        return true;
-    }
-
-    @Override
     protected String alertName() {
         return "Section hit";
     }
