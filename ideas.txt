@@ -35,13 +35,13 @@ Done - Add unit tests
     -   Section hit
 
 Done - Make it easier to run
-
-Add java docs
 Add shadowJar
 
+Add java docs
 Add readme
 
-
+java -jar build/libs/shadow-jar-1.0-SNAPSHOT.jar apps.consumer.ConsoleAlertingApp /Users/Piggie/projects/log-monitoring/src/main/resources/config/console_alerting_app.json
+java -jar build/libs/shadow-jar-1.0-SNAPSHOT.jar apps.consumer.LogReaderApp /Users/Piggie/projects/log-monitoring/src/main/resources/config/log_reader_app.json
 
 Improvements:
     Add heartbeat from producer to consumer to drive the clock
