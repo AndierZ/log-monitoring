@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public abstract class FixedStatsMonitor extends StatsMonitor {
+public abstract class KeyedFixedStatsMonitor extends StatsMonitor {
 
     private long prevTimestamp;
     private final long interval;
@@ -14,7 +14,7 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
     private final StringBuilder sb = new StringBuilder();
     protected final Map<String, Integer> hits = new HashMap<>();
 
-    public FixedStatsMonitor(JSONObject config) {
+    public KeyedFixedStatsMonitor(JSONObject config) {
         super(config);
         this.maxDisplayCount = ((Long) config.get("max_display_count")).intValue();
         this.interval = TimeUnit.SECONDS.toMillis((long) config.get("interval_secs"));
@@ -22,12 +22,9 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
 
     public void onMsg(LogEntryParser parser) {
         long timestamp = parser.getTimestamp();
-        increment(parser);
         if (prevTimestamp == 0) {
             prevTimestamp = timestamp;
-            return;
-        }
-        if (timestamp - prevTimestamp >= interval) {
+        } else if (timestamp - prevTimestamp >= interval) {
             List<Map.Entry<String, Integer>> entries = new ArrayList<>(hits.entrySet());
             entries.sort((a, b) -> b.getValue() - a.getValue());
 
@@ -39,13 +36,13 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
                 sb.append("No data");
             } else {
                 sb.append(alertName());
-                sb.append(" top ");
+                sb.append(" (top ");
                 sb.append(maxDisplayCount);
-                sb.append(": ");
+                sb.append("):");
                 for(int i = 0; i<Math.min(maxDisplayCount, entries.size()); i++) {
                     sb.append(" (");
                     sb.append(entries.get(i).getKey());
-                    sb.append(", ");
+                    sb.append(" - ");
                     sb.append(entries.get(i).getValue());
                     sb.append("),");
                 }
@@ -56,6 +53,7 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
             this.hits.clear();
             prevTimestamp = timestamp;
         }
+        increment(parser);
     }
 
     @Override
