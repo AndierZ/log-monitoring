@@ -30,18 +30,25 @@ public class LogEntryBuilderTest {
         parser.wrap(buf);
 
         Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
-        // 4 - Msg len
-        // 4 - Msg type
-        // 8 - Timestamp
-        // 4 - String len
-        // 3 - String bytes
-        Assert.assertEquals(4 + 4 + 8 + 4 + 3, parser.getMsgLen());
+        // 4 - msg len
+        // 4 - msg type
+        // 8 - timestamp
+        // 4 - bytes
+        // 4 - status
+        // 7 - section ("api")
+        // 4 - remoteHost (null)
+        // 4 - authUser (null)
+        // 4 - method (null)
+        // 4 - route (null)
+
+        int len = 4 + 4 + 8 + 4 + 4 + 7 + 4 + 4 + 4 + 4;
+        Assert.assertEquals(len, parser.getMsgLen());
         Assert.assertEquals(100, parser.getTimestamp());
         Assert.assertEquals("api", parser.getSection());
 
         // Reading multiple times should be ok
         Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
-        Assert.assertEquals(4 + 4 + 8 + 4 + 3, parser.getMsgLen());
+        Assert.assertEquals(len, parser.getMsgLen());
         Assert.assertEquals(100, parser.getTimestamp());
         Assert.assertEquals("api", parser.getSection());
 
@@ -53,14 +60,16 @@ public class LogEntryBuilderTest {
         buf = createBuffer(this.out.getBytes());
         parser.wrap(buf);
 
+        // 7 -> 10 ("api" -> "report")
+        len = 4 + 4 + 8 + 4 + 4 + 10 + 4 + 4 + 4 + 4;
         Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
-        Assert.assertEquals(4 + 4 + 8 + 4 + 6, parser.getMsgLen());
+        Assert.assertEquals(len, parser.getMsgLen());
         Assert.assertEquals(200, parser.getTimestamp());
         Assert.assertEquals("report", parser.getSection());
 
         // Reading multiple times should be ok
         Assert.assertEquals(LogEntryMeta.MSG_TYPE, parser.getMsgType());
-        Assert.assertEquals(4 + 4 + 8 + 4 + 6, parser.getMsgLen());
+        Assert.assertEquals(len, parser.getMsgLen());
         Assert.assertEquals(200, parser.getTimestamp());
         Assert.assertEquals("report", parser.getSection());
 

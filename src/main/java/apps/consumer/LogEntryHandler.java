@@ -15,23 +15,14 @@ public class LogEntryHandler extends MessageHandler<LogEntryParser> {
     private final long statsInterval;
     private final Map<String, Integer> sectionHits = new HashMap<>();
     private final StringBuilder sb = new StringBuilder();
-    private final int totalTrafficCheckThreshold;
-    private final long totalTrafficCheckDeadband;
-    private final TimeseriesCircularCounter counter;
 
     private long prevTimestamp;
     private long timestamp;
-    private long totalTrafficCheckActivatedTime;
 
     public LogEntryHandler(Context context) {
         super(context);
         this.maxDisplayCount = (int) context.getConfig().getOrDefault("max_display_count", 5);
         this.statsInterval = TimeUnit.SECONDS.toMillis((int) context.getConfig().getOrDefault("stats_interval", 10));
-        long totalTrafficCheckPeriod = TimeUnit.SECONDS.toMillis((int) context.getConfig().getOrDefault("total_traffic_check_period", 120));
-        long totalTrafficCheckInterval = TimeUnit.SECONDS.toMillis((int) context.getConfig().getOrDefault("total_traffic_check_interval", 1));
-        this.totalTrafficCheckThreshold = (int) context.getConfig().getOrDefault("total_traffic_check_threshold", 10);
-        this.totalTrafficCheckDeadband = TimeUnit.SECONDS.toMillis((int) context.getConfig().getOrDefault("total_traffic_check_interval", 1));
-        this.counter = new TimeseriesCircularCounter(totalTrafficCheckPeriod, totalTrafficCheckInterval);
     }
 
     @Override
@@ -79,31 +70,6 @@ public class LogEntryHandler extends MessageHandler<LogEntryParser> {
 
             this.sectionHits.clear();
             prevTimestamp = timestamp;
-        }
-
-        this.counter.increment(timestamp);
-        if (this.counter.isReady()) {
-            if (this.counter.getAverage() > this.totalTrafficCheckThreshold) {
-                if (this.totalTrafficCheckActivatedTime == -1) {
-
-                    sb.setLength(0);
-                    sb.append("High traffic generated an alert - hits = ");
-                    sb.append((int) this.counter.getAverage());
-                    sb.append(", triggered at time ").append(new Date(timestamp));
-                    System.out.println(sb.toString());
-                    this.totalTrafficCheckActivatedTime = timestamp;
-                }
-            } else {
-                // Reset alert if traffic has dropped and it's been more than one second
-                if (this.totalTrafficCheckActivatedTime > 0 && timestamp - totalTrafficCheckActivatedTime > totalTrafficCheckDeadband) {
-                    sb.setLength(0);
-                    sb.append("High traffic alert recovered - hits = ");
-                    sb.append((int) this.counter.getAverage());
-                    sb.append(", recovered at time ").append(new Date(timestamp));
-                    System.out.println(sb.toString());
-                    this.totalTrafficCheckActivatedTime = -1;
-                }
-            }
         }
     }
 

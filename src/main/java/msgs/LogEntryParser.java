@@ -4,28 +4,80 @@ import java.nio.ByteBuffer;
 
 public class LogEntryParser implements MessageParser {
 
-    private ByteBuffer buf;
+    private int msgLen;
+    private int msgType;
+    private long timestamp;
+    private int bytes;
+    private int status;
+    private String section;
+    private String remoteHost;
+    private String authUser;
+    private String method;
+    private String route;
 
     @Override
     public void wrap(ByteBuffer buf) {
-        this.buf = buf;
+        this.msgLen = buf.getInt();
+        this.msgType = buf.getInt();
+        this.timestamp = buf.getLong();
+        this.bytes = buf.getInt();
+        this.status = buf.getInt();
+        this.section = getString(buf);
+        this.remoteHost = getString(buf);
+        this.authUser = getString(buf);
+        this.method = getString(buf);
+        this.route = getString(buf);
+    }
+
+    private String getString(ByteBuffer buf) {
+        // TODO If there aren't many distinct values consider String.intern()
+        int len = buf.getInt();
+        if (len == 0) {
+            return null;
+        }
+        int pos = buf.position();
+        buf.position(pos + len);
+        return new String(buf.array(), pos, len);
     }
 
     public int getMsgLen() {
-        return this.buf.getInt(LogEntryMeta.MSG_LEN_OFFSET);
+        return msgLen;
     }
 
     @Override
     public int getMsgType() {
-        return this.buf.getInt(LogEntryMeta.MSG_TYPE_OFFSET);
+        return msgType;
     }
 
     public long getTimestamp() {
-        return this.buf.getLong(LogEntryMeta.TIMESTAMP_OFFSET);
+        return timestamp;
+    }
+
+    public int getBytes() {
+        return bytes;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public String getSection() {
-        int len = this.buf.getInt(LogEntryMeta.SECTION_OFFSET);
-        return new String(this.buf.array(), LogEntryMeta.SECTION_OFFSET + 4, len);
+        return section;
+    }
+
+    public String getRemoteHost() {
+        return remoteHost;
+    }
+
+    public String getAuthUser() {
+        return authUser;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public String getRoute() {
+        return route;
     }
 }
