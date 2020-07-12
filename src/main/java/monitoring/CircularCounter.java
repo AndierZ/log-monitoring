@@ -1,4 +1,4 @@
-package common;
+package monitoring;
 
 public class CircularCounter {
 

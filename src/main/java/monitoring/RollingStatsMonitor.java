@@ -1,16 +1,15 @@
-package apps.consumer;
+package monitoring;
 
-import common.TimeseriesCircularCounter;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RollingStatsMonitor {
+public abstract class RollingStatsMonitor extends StatsMonitor {
 
-    private final TimeseriesCircularCounter counter;
-    private final int threshold;
+    protected final TimeseriesCircularCounter counter;
+    protected final int threshold;
     private final long deadband;
     private final StringBuilder sb;
 
@@ -25,19 +24,20 @@ public abstract class RollingStatsMonitor {
         this.counter = new TimeseriesCircularCounter(period, interval);
     }
 
-    abstract protected void increment(TimeseriesCircularCounter counter, LogEntryParser parser);
-
-    abstract protected boolean activateAlert(TimeseriesCircularCounter counter, double threshold);
-
-    abstract protected String alertName();
-
     public void onMsg(LogEntryParser parser) {
         long timestamp = parser.getTimestamp();
-        increment(counter, parser);
+        boolean updated = increment(parser);
+        if (!updated) {
+            return;
+        }
+
         if (this.counter.isReady()) {
-            if (activateAlert(counter, threshold)) {
+            if (activateAlert()) {
                 if (this.lastActivationTime == -1) {
                     sb.setLength(0);
+                    sb.append("Time: ");
+                    sb.append(new Date(timestamp));
+                    sb.append(". ");
                     sb.append(alertName());
                     sb.append(" generated an alert - hits = ");
                     sb.append((int) this.counter.getAverage());
@@ -49,6 +49,9 @@ public abstract class RollingStatsMonitor {
                 // Reset alert if traffic has dropped and it's been more than one second
                 if (this.lastActivationTime > 0 && timestamp - lastActivationTime > deadband) {
                     sb.setLength(0);
+                    sb.append("Time: ");
+                    sb.append(new Date(timestamp));
+                    sb.append(". ");
                     sb.append(alertName());
                     sb.append(" alert recovered - hits = ");
                     sb.append((int) this.counter.getAverage());

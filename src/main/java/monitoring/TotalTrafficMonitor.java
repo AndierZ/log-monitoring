@@ -1,6 +1,5 @@
-package apps.consumer;
+package monitoring;
 
-import common.TimeseriesCircularCounter;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
@@ -11,12 +10,12 @@ public class TotalTrafficMonitor extends RollingStatsMonitor {
     }
 
     @Override
-    protected void increment(TimeseriesCircularCounter counter, LogEntryParser parser) {
-        counter.increment(parser.getTimestamp());
+    protected boolean increment(LogEntryParser parser) {
+        return counter.increment(parser.getTimestamp());
     }
 
     @Override
-    protected boolean activateAlert(TimeseriesCircularCounter counter, double threshold) {
+    protected boolean activateAlert() {
         return counter.getAverage() > threshold;
     }
 

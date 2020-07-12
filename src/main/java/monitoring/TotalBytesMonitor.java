@@ -1,6 +1,5 @@
-package apps.consumer;
+package monitoring;
 
-import common.TimeseriesCircularCounter;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
@@ -11,17 +10,17 @@ public class TotalBytesMonitor extends RollingStatsMonitor {
     }
 
     @Override
-    protected void increment(TimeseriesCircularCounter counter, LogEntryParser parser) {
-
+    protected boolean increment(LogEntryParser parser) {
+        return counter.increment(parser.getTimestamp(), parser.getBytes());
     }
 
     @Override
-    protected boolean activateAlert(TimeseriesCircularCounter counter, double threshold) {
-        return false;
+    protected boolean activateAlert() {
+        return counter.getTotal() > threshold;
     }
 
     @Override
     protected String alertName() {
-        return null;
+        return "High total bytes";
     }
 }

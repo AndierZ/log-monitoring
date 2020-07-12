@@ -1,4 +1,4 @@
-package common;
+package monitoring;
 
 public class TimeseriesCircularCounter {
 
@@ -17,11 +17,12 @@ public class TimeseriesCircularCounter {
         this.counter = new CircularCounter(buckets);
     }
 
-    public void increment(long timestamp) {
-        increment(timestamp, 1);
+    public boolean increment(long timestamp) {
+        return increment(timestamp, 1);
     }
 
-    public void increment(long timestamp, int diff) {
+    public boolean increment(long timestamp, int diff) {
+        boolean updated = false;
         if (lastTimestamp == 0) {
             lastTimestamp = timestamp;
         } else if (timestamp - lastTimestamp >= this.interval) {
@@ -32,9 +33,11 @@ public class TimeseriesCircularCounter {
                 currentVal = 0;
             }
             lastTimestamp = timestamp;
+            updated = true;
         }
 
         currentVal += diff;
+        return updated;
     }
 
     public double getAverage() {

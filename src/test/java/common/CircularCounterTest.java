@@ -1,5 +1,7 @@
 package common;
 
+import monitoring.CircularCounter;
+import monitoring.TimeseriesCircularCounter;
 import org.junit.Assert;
 import org.junit.Test;
 
