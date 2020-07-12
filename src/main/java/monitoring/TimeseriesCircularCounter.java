@@ -9,8 +9,6 @@ public class TimeseriesCircularCounter {
     private long lastTimestamp;
     private int currentVal;
 
-
-
     public TimeseriesCircularCounter(long length, long interval) {
         this.buckets = (int) (length / interval);
         this.interval = interval;

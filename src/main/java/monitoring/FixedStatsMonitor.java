@@ -1,7 +1,7 @@
 package monitoring;
 
-import common.Context;
 import msgs.LogEntryParser;
+import org.json.simple.JSONObject;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -14,9 +14,10 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
     private final StringBuilder sb = new StringBuilder();
     protected final Map<String, Integer> hits = new HashMap<>();
 
-    public FixedStatsMonitor(Context context) {
-        this.maxDisplayCount = (int) context.getConfig().getOrDefault("max_display_count", 5);
-        this.interval = TimeUnit.SECONDS.toMillis((int) context.getConfig().getOrDefault("interval", 10));
+    public FixedStatsMonitor(JSONObject config) {
+        super(config);
+        this.maxDisplayCount = ((Long) config.get("max_display_count")).intValue();
+        this.interval = TimeUnit.SECONDS.toMillis((long) config.get("interval_secs"));
     }
 
     public void onMsg(LogEntryParser parser) {

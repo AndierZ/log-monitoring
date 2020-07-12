@@ -9,18 +9,19 @@ import java.util.concurrent.TimeUnit;
 public abstract class RollingStatsMonitor extends StatsMonitor {
 
     protected final TimeseriesCircularCounter counter;
-    protected final int threshold;
+    protected final double threshold;
     private final long deadband;
     private final StringBuilder sb;
 
     private long lastActivationTime;
 
     public RollingStatsMonitor(JSONObject config) {
+        super(config);
         this.sb = new StringBuilder();
-        long period = TimeUnit.SECONDS.toMillis((int) config.getOrDefault("period", 120));
-        long interval = TimeUnit.SECONDS.toMillis((int) config.getOrDefault("interval", 1));
-        this.threshold = (int) config.getOrDefault("threshold", 10);
-        this.deadband = TimeUnit.SECONDS.toMillis((int) config.getOrDefault("deadband", 1));
+        long period = TimeUnit.SECONDS.toMillis((long) config.get("period_secs"));
+        long interval = TimeUnit.SECONDS.toMillis((long) config.get("interval_secs"));
+        this.threshold = ((Long) config.get("threshold")).doubleValue();
+        this.deadband = TimeUnit.SECONDS.toMillis((long) config.get("deadband_secs"));
         this.counter = new TimeseriesCircularCounter(period, interval);
     }
 

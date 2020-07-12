@@ -1,12 +1,12 @@
 package monitoring;
 
-import common.Context;
 import msgs.LogEntryParser;
+import org.json.simple.JSONObject;
 
 public class SectionHitMonitor extends FixedStatsMonitor {
 
-    public SectionHitMonitor(Context context) {
-        super(context);
+    public SectionHitMonitor(JSONObject config) {
+        super(config);
     }
 
     @Override

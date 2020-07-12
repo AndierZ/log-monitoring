@@ -1,3 +1,22 @@
 {
-  "port": 12088
+  "port": 12088,
+  "monitor_list" :
+    {
+      "monitoring.SectionHitMonitor": {
+        "interval_secs" : 10,
+        "max_display_count" : 3
+      },
+      "monitoring.TotalTrafficMonitor": {
+        "period_secs" : 120,
+        "interval_secs" : 1,
+        "threshold" : 10,
+        "deadband_secs" : 1
+      },
+      "monitoring.TotalBytesMonitor": {
+        "period_secs" : 120,
+        "interval_secs" : 1,
+        "threshold" : 1048576,
+        "deadband_secs" : 1
+      }
+    }
 }

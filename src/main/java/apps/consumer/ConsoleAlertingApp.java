@@ -24,7 +24,7 @@ public class ConsoleAlertingApp extends App {
     }
 
     @Override
-    protected void start() throws IOException {
+    protected void start() throws Exception {
         while(true) {
             Socket socket = this.serverSocket.accept();
             MessageProcessingThread t = new MessageProcessingThread(socket);
