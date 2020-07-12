@@ -28,20 +28,24 @@ Add core functionality for alerting and stats
     - total bytes per ip address
 
 
-Add unit tests
+Done - Add unit tests
     -   Total traffic
     -   Total bytes
     -   Total traffic by user
     -   Section hit
 
+Done - Make it easier to run
+
 Add java docs
 Add shadowJar
-Make it easier to run
+
 Add readme
 
 
 
 Improvements:
+    Add more test casts
+    Think about how to deal with log lines with timestamps out of order
     Make monitor class more configurable ideally no longer need to write subclasses
     Add more monitoring metrics
     Use codegen for message codec and make fields optional

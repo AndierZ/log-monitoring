@@ -1,4 +1,5 @@
 {
-  "log_files": ["/Users/Piggie/projects/log-monitoring/src/main/resources/test/sample_csv.txt"],
-  "consumer_addresses": ["localhost:12088"]
+  "log_files": ["test/sample_csv.txt"],
+  "consumer_addresses": ["localhost:12088"],
+  "use_resource_file": true
 }

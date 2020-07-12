@@ -22,9 +22,16 @@ public class LogReaderApp extends App {
         JSONObject config = context.getConfig();
         JSONArray logFiles = (JSONArray) config.get(Constants.LOG_FILES);
         JSONArray consumerAddresses = (JSONArray) config.get(Constants.CONSUMER_ADDRESSES);
+        boolean useResourceFile = (boolean) config.getOrDefault(Constants.USE_RESOURCE_FILE, false);
 
         for(int i=0; i< logFiles.size(); i++) {
-            String filePath = logFiles.get(i).toString();
+            String filePath;
+            if (useResourceFile) {
+                filePath = LogReaderApp.class.getClassLoader().getResource(logFiles.get(i).toString()).getFile();
+            } else {
+                filePath = logFiles.get(i).toString();
+            }
+
             fileParsers.add(new MessageDistributionThread(filePath, consumerAddresses, new LogEntrySender()));
         }
 

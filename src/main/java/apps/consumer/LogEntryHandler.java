@@ -29,7 +29,6 @@ public class LogEntryHandler extends MessageHandler<LogEntryParser> {
 
     @Override
     public void handle(LogEntryParser parser) {
-        System.out.println(parser.getMsgLen() + "," + parser.getMsgType() + "," + parser.getTimestamp() + "," + parser.getSection());
         for(int i=0; i<monitorList.size(); i++) {
             monitorList.get(i).onMsg(parser);
         }

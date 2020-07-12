@@ -2,7 +2,7 @@
   "port": 12088,
   "monitor_list" :
     {
-      "monitoring.SectionHitMonitor": {
+      "monitoring.SectionHitsMonitor": {
         "interval_secs" : 10,
         "max_display_count" : 3
       },
