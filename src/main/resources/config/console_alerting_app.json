@@ -18,10 +18,10 @@
         "threshold" : 1048576,
         "deadband_secs" : 1
       },
-      "monitoring.TotalHitsByUserMonitor": {
+      "monitoring.TotalHitsByRemoteHostMonitor": {
         "period_secs" : 10,
         "interval_secs" : 1,
-        "threshold" : 100,
+        "threshold" : 5,
         "deadband_secs" : 1
       }
     }

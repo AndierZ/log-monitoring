@@ -10,7 +10,6 @@ public class LogReaderAppLauncher {
         String[] appArgs = new String[2];
         appArgs[0] = LogReaderApp.class.getName();
         appArgs[1] = LogReaderAppLauncher.class.getClassLoader().getResource("config/log_reader_app.json").getFile();
-
         main.main(appArgs);
     }
 }

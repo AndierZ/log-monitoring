@@ -1,12 +1,13 @@
 package monitoring;
 
+import common.Constants;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RollingStatsMonitor extends StatsMonitor {
+public abstract class RollingStatsMonitor extends SingleStatsMonitor {
 
     protected final TimeseriesCircularCounter counter;
     protected final double threshold;
@@ -20,11 +21,11 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
     public RollingStatsMonitor(JSONObject config) {
         super(config);
         this.sb = new StringBuilder();
-        this.key = (String) config.get("key");
-        long period = TimeUnit.SECONDS.toMillis((long) config.get("period_secs"));
-        long interval = TimeUnit.SECONDS.toMillis((long) config.get("interval_secs"));
-        this.threshold = ((Long) config.get("threshold")).doubleValue();
-        this.deadband = TimeUnit.SECONDS.toMillis((long) config.get("deadband_secs"));
+        this.key = (String) config.get(Constants.KEY);
+        long period = TimeUnit.SECONDS.toMillis((long) config.get(Constants.PERIOD_SECS));
+        long interval = TimeUnit.SECONDS.toMillis((long) config.get(Constants.INTERVAL_SECS));
+        this.threshold = ((Long) config.get(Constants.THRESHOLD)).doubleValue();
+        this.deadband = TimeUnit.SECONDS.toMillis((long) config.get(Constants.DEADBAND_SECS));
         this.counter = new TimeseriesCircularCounter(period, interval);
     }
 

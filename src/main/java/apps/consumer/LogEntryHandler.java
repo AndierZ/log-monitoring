@@ -1,5 +1,6 @@
 package apps.consumer;
 
+import common.Constants;
 import common.Context;
 import monitoring.StatsMonitor;
 import msgs.LogEntryMeta;
@@ -18,11 +19,13 @@ public class LogEntryHandler extends MessageHandler<LogEntryParser> {
     public LogEntryHandler(Context context) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         super(context);
         this.monitorList = new ArrayList<>();
-        JSONObject monitors = (JSONObject) context.getConfig().get("monitor_list");
+        JSONObject monitors = (JSONObject) context.getConfig().get(Constants.MONITOR_LIST);
         for(Object key : monitors.keySet()) {
             Class<?> clz = Class.forName(key.toString());
             if (StatsMonitor.class.isAssignableFrom(clz)) {
                 monitorList.add((StatsMonitor) clz.getConstructor(JSONObject.class).newInstance(monitors.get(key)));
+            } else {
+                throw new RuntimeException("Monitor must be subclass of " + StatsMonitor.class.getName());
             }
         }
     }

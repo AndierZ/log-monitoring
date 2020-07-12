@@ -1,12 +1,13 @@
 package monitoring;
 
+import common.Constants;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public abstract class KeyedFixedStatsMonitor extends StatsMonitor {
+public abstract class KeyedFixedStatsMonitor extends SingleStatsMonitor {
 
     private long prevTimestamp;
     private final long interval;
@@ -16,8 +17,8 @@ public abstract class KeyedFixedStatsMonitor extends StatsMonitor {
 
     public KeyedFixedStatsMonitor(JSONObject config) {
         super(config);
-        this.maxDisplayCount = ((Long) config.get("max_display_count")).intValue();
-        this.interval = TimeUnit.SECONDS.toMillis((long) config.get("interval_secs"));
+        this.maxDisplayCount = ((Long) config.get(Constants.MAX_DISPLAY_COUNT)).intValue();
+        this.interval = TimeUnit.SECONDS.toMillis((long) config.get(Constants.INTERVAL_SECS));
     }
 
     public void onMsg(LogEntryParser parser) {

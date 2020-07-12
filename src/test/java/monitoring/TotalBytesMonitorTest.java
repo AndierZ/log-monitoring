@@ -53,7 +53,7 @@ public class TotalBytesMonitorTest {
         // bytes by interval: (20, 20, 2)
         timestamp = sendMessages(timestamp, 2,1, 200, monitor, msg);
         Assert.assertEquals(1, monitor.outputCount());
-        String alert = "Wed Dec 31 19:00:14 EST 1969. High total bytes generated an alert - total traffic = 40.0 Mb, triggered at time Wed Dec 31 19:00:14 EST 1969";
+        String alert = "Wed Dec 31 19:00:14 EST 1969. High total bytes generated an alert - traffic = 40.0 Mb, triggered at time Wed Dec 31 19:00:14 EST 1969";
         Assert.assertEquals(alert, monitor.getLastAlert());
 
         // 9 messages, 200ms apart. 1.8s in total, completing 3rd interval
@@ -71,7 +71,7 @@ public class TotalBytesMonitorTest {
         // bytes by interval: (20, 20, 20, 10, 2)
         timestamp = sendMessages(timestamp, 2,5, 400, monitor, msg);
         // traffic dropped in the 4th interval, recovering from the alert
-        alert = "Wed Dec 31 19:00:18 EST 1969. High total bytes alert recovered - total traffic = 30.0 Mb, recovered at time Wed Dec 31 19:00:18 EST 1969";
+        alert = "Wed Dec 31 19:00:18 EST 1969. High total bytes alert recovered - traffic = 30.0 Mb, recovered at time Wed Dec 31 19:00:18 EST 1969";
         Assert.assertEquals(2, monitor.outputCount());
         Assert.assertEquals(alert, monitor.getLastAlert());
     }

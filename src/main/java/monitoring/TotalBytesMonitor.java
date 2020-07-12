@@ -15,7 +15,7 @@ public class TotalBytesMonitor extends RollingStatsMonitor {
     }
 
     protected String formatCounterVal() {
-        return "total traffic = " + getCounterVal() / 1024 / 1024 + " Mb";
+        return "traffic = " + getCounterVal() / 1024 / 1024 + " Mb";
     }
 
     @Override

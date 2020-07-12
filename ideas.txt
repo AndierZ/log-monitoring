@@ -44,19 +44,19 @@ Add readme
 
 
 Improvements:
-    Add more test casts
+    Add heartbeat from producer to consumer to drive the clock
     Think about how to deal with log lines with timestamps out of order
+    Add more test cases
     Make monitor class more configurable ideally no longer need to write subclasses
     Add more monitoring metrics
     Use codegen for message codec and make fields optional
-    Use mockito for unit tests
-    Add retry on disconnect on the producer
+    Could parse different log lines into different messages
+    Introduce "sharding" when sending raw data to consumers now that fields are optional
     Add redundancy for the consumer with leader election
     Make backup consumers always in sync with the primary consumer
+    Add retry on disconnect on the producer
     Manage config files separately
 	Manage the apps using kubernetes
-	Could parse different log lines into different messages
-	Introduce "sharding" when sending raw data to consumers now that fields are optional
 
 Questions:
     -   Could you please expand on "make a reasonable assumption about how to handle the 10-second intervals"? Should I implement additional metrics based on what I assume might be interesting from a monitoring perspective?
