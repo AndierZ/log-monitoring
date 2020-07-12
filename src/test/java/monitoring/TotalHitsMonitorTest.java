@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TotalHitsMonitorTest {
 
-    class TestTotalHitsMonitor extends TotalHitsMonitor {
+    static class TestTotalHitsMonitor extends TotalHitsMonitor {
 
         private final List<String> outputs = new ArrayList<>();
 
@@ -23,11 +23,11 @@ public class TotalHitsMonitorTest {
             outputs.add(s);
         }
 
-        private int outputCount() {
+        protected int outputCount() {
             return this.outputs.size();
         }
 
-        private String getLastAlert() {
+        protected String getLastAlert() {
             return this.outputs.get(this.outputs.size()-1);
         }
     }

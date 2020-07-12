@@ -9,7 +9,7 @@ import java.util.Map;
 public abstract class KeyedRollingStatsMonitor {
 
     private final JSONObject config;
-    private final Map<String, RollingStatsMonitor> monitors = new HashMap<>();
+    protected final Map<String, RollingStatsMonitor> monitors = new HashMap<>();
 
     public KeyedRollingStatsMonitor(JSONObject config) {
         this.config = config;
