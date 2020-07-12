@@ -1,6 +1,5 @@
-import msgs.LogEntryBuilder;
-import msgs.LogEntryMeta;
-import msgs.LogEntryParser;
+package msgs;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -101,6 +100,5 @@ public class LogEntryBuilderTest {
         private List<Byte> getBytes() {
             return this.cache;
         }
-
     }
 }

@@ -18,31 +18,33 @@ Write apps.consumer, apps.consumer inputs over TCP, send to a output sink (write
 	take list of producers to expect
 Introduce config to specify how these components should be instantiated
 They should be one instance per thread. and know how to connect to each other
-Use flat buf for message marshalling
 
-
-Done - Remove logic around hist/realtime context
-
-Introduce heartbeat
+Make message building and parser more modularized
 Add core functionality for alerting and stats
+    - build circular counter
+    - build alert monitor using circular counter
+    - total traffic over x seconds
+    - request count per section
+    - total bytes per ip address
 
-
-Make message building and parser more modulized
-Make context actually useful - get time or intput/output stream from it
 
 Add unit tests
-Add logic for apps.producer to reconnect
 Add docs
 
 
 
 
 Improvements:
-	Add a messaging broker
-		- Potentially use multicast with guaranteed delivery
- 		- Back pressure
-		- Leader election
-		- Replay on reconnect
-	Manage the apps using dockers and kubernetes
-        Manage config files separately
-        Use flat buffer
+    Add more metrics
+    Use codegen for message codec
+    Add retry on disconnect on the producer
+    Add redundancy for the consumer with leader election
+    Make backup consumers always in sync with the primary consumer
+    Manage config files separately
+	Manage the apps using kubernetes
+
+Questions:
+    -   Could you please expand on "make a reasonable assumption about how to handle the 10-second intervals"? Should I implement additional metrics based on what I assume might be interesting from a monitoring perspective?
+    -   Regarding the stats for the 10-second interval and "don't just print them at the end", does it mean "don't print them at the end of parsing the entire file" or "don't print them at the end of each 10-second interval"? In other words, do we want to check and potentially print stats every 10 seconds, or is the 10-second interval a rolling window and we want to check and potentially print stats continuously based on certain thresholds we define?
+    -   Could you please clarify what "+/- a second" means with regards to the recovering of the total traffic alert?
+
