@@ -17,6 +17,12 @@
         "interval_secs" : 1,
         "threshold" : 1048576,
         "deadband_secs" : 1
+      },
+      "monitoring.TotalTrafficByUserMonitor": {
+        "period_secs" : 10,
+        "interval_secs" : 1,
+        "threshold" : 100,
+        "deadband_secs" : 1
       }
     }
 }

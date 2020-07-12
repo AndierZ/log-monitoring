@@ -14,5 +14,7 @@ public abstract class StatsMonitor {
 
     abstract protected String alertName();
 
+    abstract protected void output(String alert);
+
     abstract public void onMsg(LogEntryParser parser);
 }

@@ -10,14 +10,17 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
 
     protected final TimeseriesCircularCounter counter;
     protected final double threshold;
+
     private final long deadband;
     private final StringBuilder sb;
+    private final String key;
 
     private long lastActivationTime;
 
     public RollingStatsMonitor(JSONObject config) {
         super(config);
         this.sb = new StringBuilder();
+        this.key = (String) config.get("key");
         long period = TimeUnit.SECONDS.toMillis((long) config.get("period_secs"));
         long interval = TimeUnit.SECONDS.toMillis((long) config.get("interval_secs"));
         this.threshold = ((Long) config.get("threshold")).doubleValue();
@@ -39,11 +42,12 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
                     sb.append("Time: ");
                     sb.append(new Date(timestamp));
                     sb.append(". ");
+                    if (key != null) sb.append(key).append(" - ");
                     sb.append(alertName());
                     sb.append(" generated an alert - hits = ");
                     sb.append((int) this.counter.getAverage());
                     sb.append(", triggered at time ").append(new Date(timestamp));
-                    System.out.println(sb.toString());
+                    output(sb.toString());
                     this.lastActivationTime = timestamp;
                 }
             } else {
@@ -53,14 +57,20 @@ public abstract class RollingStatsMonitor extends StatsMonitor {
                     sb.append("Time: ");
                     sb.append(new Date(timestamp));
                     sb.append(". ");
+                    if (key != null) sb.append(key).append(" - ");
                     sb.append(alertName());
                     sb.append(" alert recovered - hits = ");
                     sb.append((int) this.counter.getAverage());
                     sb.append(", recovered at time ").append(new Date(timestamp));
-                    System.out.println(sb.toString());
+                    output(sb.toString());
                     this.lastActivationTime = -1;
                 }
             }
         }
+    }
+
+    @Override
+    protected void output(String alert) {
+        System.out.println(alert);
     }
 }

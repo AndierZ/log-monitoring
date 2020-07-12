@@ -52,10 +52,15 @@ public abstract class FixedStatsMonitor extends StatsMonitor {
                 }
             }
 
-            System.out.println(sb.toString().substring(0, sb.length()-1));
+            output(sb.substring(0, sb.length()-1));
 
             this.hits.clear();
             prevTimestamp = timestamp;
         }
+    }
+
+    @Override
+    protected void output(String alert) {
+        System.out.println(alert);
     }
 }
