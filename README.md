@@ -53,4 +53,16 @@ Project is largely comprised oftwo parts
 - Make backup consumers always in sync with the primary consumer: So the underlying states for the alerts can be preserved. One option could have all the backup instances listen to the same messages from the producer, and only have the primary instance generate alert. When it goes down, implement leader election logic to promote one backup instance as the leader.
 - Manage config files separately: Config files are specified when launching the jar, so we can manage them separately. Employ proper version control, build pipe lines for updating and distributing config changes to all machines.
 
-# How to setup and run
+# How to run
+- Run in dev environment
+  - Open Intellij and choose ```open```
+  - Select the top level "log-monitoring" directory
+  - Click on ```Build``` -> ```Build Project```
+  - Run demo.ConsoleAlertingAppLauncher
+  - Run demo.LogReaderAppLauncher
+- Run with the jar
+  - Open terminal and go to the project directory
+  - ``` ./gradlew shadowJar```
+  - Modify the ```log_reader_app.json``` file in the resource folder. Remove ```"log_files_in_resource": true```, and update ```log_files``` to point to the absolute path of the log file to be parsed
+  - ```java -jar build/libs/shadow-jar-1.0-SNAPSHOT.jar apps.consumer.ConsoleAlertingApp ./src/main/resources/config/console_alerting_app.json```
+  - ```java -jar build/libs/shadow-jar-1.0-SNAPSHOT.jar apps.consumer.LogReaderApp ./src/main/resources/config/log_reader_app.json```
