@@ -17,44 +17,44 @@ Application for log monitoring and alert generation.
 - Support long running producers if so desired
 - Support the parsing of different log files into different messages
 - Support the addition of new alerts for different messages
-- Have alerts and parameters configurable
+- Configure and instantiate alerting modules using config
 - Be as memory efficient as possible, for example, by avoiding creating new objects for each log message
 
 # Code structure and explanation
-Project is largely comprised oftwo parts
+Project is largely comprised of two parts
 - LogReaderApp (producer): Gets all log files and creates MessageDistributionThread for each file 
   - MessageDistributionThread: Parses the file and passes each line to LogEntrySender
     - LogEntrySender: Converts line to binary message and sends to the output stream
 - ConsoleAlertingApp (consumer): Awaits incoming connection and creates MessageProcessingThread for each new connection
-  - MessageProcessingThread: Parses binary message into readable objects and pass on to MessageHandler
-    - MessageHandler: Route each message through the list of <? extends StatsMonitor>
-      - <? extends StatsMonitor>: Processes each log message and computes statistics
+  - MessageProcessingThread: Parses binary message into readable objects and passes on to MessageHandler
+    - MessageHandler: Routes each message through a list of <? extends StatsMonitor>
+      - <? extends StatsMonitor>: Modules with business logic for generating alerts
 
 # Maintainability and Scalability
 - Adding new alerts
-  - New alerting logic can be added by sub-classing one of the super classes
+  - New module can be added by sub-classing one of the super classes
     - RollingStatsMonitor: For generating alerts over a rolling window
-    - KeyedRollingStatsMonitor: For generating alerts based on keys specified by the user, over a rolling window
+    - KeyedRollingStatsMonitor: For generating keyed alerts over a rolling window
     - RankedFixedStatsMonitor: For genearting alerts with ranked values over fixed windows
-  - Create new config json file and specify the new alerts in the ```monitor_list``` property
-  - Start up the consumer with this new config json file
+  - Add the new module in the ```monitor_list``` property
 - Adding new messages
-  - New message can be created by following how the LogEntry message is supported. Framework already supports it.
-  - If the number of different messages becomes big, we could consider using code generation for generating message codec.
+  - If we need to process different log files with completely different content
+  - New message can be created by following how the LogEntry message is supported
+  - If the number of different messages becomes big, we could consider using code generation for generating message codec
 - Scale horizontally
   - Across different log files
-    - We could easily setup 10 producers for 10 log files and 5 consumers for example.
+    - For example, we could setup 10 producers for 10 log files and 4 consumers
   - Across different fields in the same log file
-    - Not fully setup, but the framework allows for routing different fields to different consumers. For example, we might want to send to one consumer only (timestamp, remotehost) if remotehost is in a certain list, and send to another consumer (timestamp, status) when status is bad, and all (timestamp, section) to a 3rd consumer.
+    - Not fully supported, but the framework allows for the routing of different fields to different consumers. For example, we might want to send to one consumer (timestamp, remotehost) if remotehost is in a certain list, and send to another consumer (timestamp, status) when status is bad, and all (timestamp, section) to a 3rd consumer
 
 # Improvements
 - Add more test cases
-- Introduce heartbeats: Currently the "clock" on the consumer is essentially driven by the log messages themselves, and each alert has a smallest "step size". For example fixed alerts will only fire every 10 seconds; even rolling alerts has a smallest unit by which it aggregates messages, which by default is 1 second. As a result, the last few log messages will always be left in the consumer's "cache" because the clock couldn't tick to the next step. One way to fix this is to have the producer send regular heartbeat messages with its timestamp.
-- Think about dealing with log lines with timestamps out of order: If the log file is written by multiple threads the timestamp might be out of order. The intuitive way is to add logic on the log generation side to ensure every log line is written sequentially.
-- Use codegen for message codec: Ideally we could specify the message structure in config file and have code generation for the actual building and parsing logic, e.g. flat buffer.
+- Introduce heartbeats: Currently the "clock" on the consumer is essentially driven by the log messages themselves, and each alert has a smallest "step size". For example fixed alerts will only be evaluated every 10 seconds; even rolling alerts has a smallest unit by which it aggregates messages, which by default is 1 second. As a result, the last few log messages will always be left in the consumer's "cache" because the clock couldn't tick to the next step. One way to fix this is to have the producer send regular heartbeats with its timestamp.
+- Consideration regarding log lines with out of order timestamps: If the log file is written by multiple threads the timestamp might be out of order. The intuitive way is to add logic on the log generation side to ensure every log line is timestamped sequentially.
+- Use codegen for message codec: Ideally we could specify the message schema in config file and have code generation to produce the message building and parsing logic, e.g. flat buffer.
 - Introduce redundancy for the consumer: When a consumer goes down, producer should retry with a list of backup consumers.
-- Make backup consumers always in sync with the primary consumer: So the underlying states for the alerts can be preserved. One option could have all the backup instances listen to the same messages from the producer, and only have the primary instance generate alert. When it goes down, implement leader election logic to promote one backup instance as the leader.
-- Manage config files separately: Config files are specified when launching the jar, so we can manage them separately. Employ proper version control, build pipe lines for updating and distributing config changes to all machines.
+- Make backup consumers always in sync with the primary consumer: So the underlying states for the alerts can be preserved. One option would be to have all the backup instances listen to the same messages from the producer, and only have the primary instance generate alerts. When primary goes down, implement leader election logic to promote one backup instance as the leader.
+- Manage config files separately: Config files are specified when launching the jar, so we can manage them separately. Employ proper version control and deploy pipe lines for updating and distributing config changes across machines.
 
 # How to run
 - Run in dev environment
