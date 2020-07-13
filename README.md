@@ -20,7 +20,7 @@ Application for log monitoring and alert generation.
 - Configure and instantiate alerting modules using config
 - Be as memory efficient as possible, for example, by avoiding creating new objects for each log message
 
-# Code structure and explanation
+# Code structure
 Project is largely comprised of two parts
 - LogReaderApp (producer): Gets all log files and creates MessageDistributionThread for each file 
   - MessageDistributionThread: Parses the file and passes each line to LogEntrySender
@@ -37,6 +37,7 @@ Project is largely comprised of two parts
     - KeyedRollingStatsMonitor: For generating keyed alerts over a rolling window
     - RankedFixedStatsMonitor: For genearting alerts with ranked values over fixed windows
   - Add the new module in the ```monitor_list``` property
+  - Code can be made more generic and eliminate the need to write subclasses altogether; But that'll make unit testing a bit harder and the whole structure more obscure
 - Adding new messages
   - If we need to process different log files with completely different content
   - New message can be created by following how the LogEntry message is supported
