@@ -36,13 +36,16 @@ Project is largely comprised oftwo parts
     - RollingStatsMonitor: For generating alerts over a rolling window
     - KeyedRollingStatsMonitor: For generating alerts based on keys specified by the user, over a rolling window
     - RankedFixedStatsMonitor: For genearting alerts with ranked values over fixed windows
+  - Create new config json file and specify the new alerts in the ```monitor_list``` property
+  - Start up the consumer with this new config json file
 - Adding new messages
   - New message can be created by following how the LogEntry message is supported. Framework already supports it.
   - If the number of different messages becomes big, we could consider using code generation for generating message codec.
 - Scale horizontally
-  - Different producers for different log files
-  - Different producers for the same file but different fields
-    - For example, route all (timestamp, remoteuser) to one consumer, route all (timestamp, status) to a different consumer.
+  - Across different log files
+    - We could easily setup 10 producers for 10 log files and 5 consumers for example.
+  - Across different fields in the same log file
+    - Not fully setup, but the framework allows for routing different fields to different consumers. For example, we might want to send to one consumer only (timestamp, remotehost) if remotehost is in a certain list, and send to another consumer (timestamp, status) when status is bad, and all (timestamp, section) to a 3rd consumer.
 
 # Improvements
 - Add more test cases
