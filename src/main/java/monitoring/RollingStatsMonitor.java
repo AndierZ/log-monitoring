@@ -8,15 +8,27 @@ import org.json.simple.JSONObject;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Keeps track of a metric based on a rolling window
+ * @param <T>
+ */
 public abstract class RollingStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
 
     protected final TimeseriesCircularCounter counter;
     protected final double threshold;
 
+
+    /**
+     * Delay between alert updates
+     */
     private final long deadband;
     private final StringBuilder sb;
 
-    private String key;
+
+    /**
+     * Additional prefix information to be displayed before the alert
+     */
+    private String prefix;
     private long lastActivationTime;
 
     public RollingStatsMonitor(Context context, JSONObject config) {
@@ -29,12 +41,23 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
         this.counter = new TimeseriesCircularCounter(period, interval);
     }
 
-    protected void setKey(String key) {
-        this.key = key;
+
+    /**
+     * @param prefix Additional information to be included in the alert
+     */
+    protected void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 
+    /**
+     * @return Value to be evaluated against the threshold, e.g. average or total for the rolling window
+     */
     abstract protected double getCounterVal();
 
+
+    /**
+     * @return Format the value for display purposes
+     */
     abstract protected String formatCounterVal();
 
     public void onMsg(T parser) {
@@ -46,11 +69,12 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
 
         if (this.counter.isReady()) {
             if (getCounterVal() >= threshold) {
+                // Raise alert if haven't already
                 if (this.lastActivationTime == 0) {
                     sb.setLength(0);
                     sb.append(new Date(timestamp));
                     sb.append(". ");
-                    if (key != null) sb.append(key).append(" - ");
+                    if (prefix != null) sb.append(prefix).append(" - ");
                     sb.append(alertName());
                     sb.append(" generated an alert - ");
                     sb.append(formatCounterVal());
@@ -60,11 +84,11 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                 }
             } else {
                 // Reset alert if traffic has dropped and it's been more than one second
-                if (this.lastActivationTime > 0 && timestamp - lastActivationTime > deadband) {
+                if (this.lastActivationTime > 0 && timestamp - lastActivationTime >= deadband) {
                     sb.setLength(0);
                     sb.append(new Date(timestamp));
                     sb.append(". ");
-                    if (key != null) sb.append(key).append(" - ");
+                    if (prefix != null) sb.append(prefix).append(" - ");
                     sb.append(alertName());
                     sb.append(" alert recovered - ");
                     sb.append(formatCounterVal());

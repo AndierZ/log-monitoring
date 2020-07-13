@@ -7,6 +7,10 @@ import org.json.simple.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Computes stats by keys, each stat based on its own rolling window
+ * @param <T>
+ */
 public abstract class KeyedRollingStatsMonitor<T extends MessageParser> extends StatsMonitor<T> {
 
     protected final Map<String, RollingStatsMonitor> monitors = new HashMap<>();

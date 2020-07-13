@@ -20,6 +20,12 @@ public class MessageDistributionThread implements Runnable {
     private final CSVReader csvReader;
     private final MessageSender sender;
 
+    /**
+     * @param filePath Path to the log file to be parsed and sent
+     * @param consumerAddresses List of addresses to send messages to
+     * @param sender Sender that builds the message and send to output stream
+     * @throws IOException
+     */
     public MessageDistributionThread(String filePath, JSONArray consumerAddresses, MessageSender sender) throws IOException {
         this.sender = sender;
         BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(filePath)));
@@ -41,8 +47,6 @@ public class MessageDistributionThread implements Runnable {
     public void run() {
         try {
             for (String[] strings : this.csvReader) {
-                // Assume entire log file maps to a single output message type
-                // If needed we could map each line to different senders to build different messages
                 this.sender.send(strings, this.dataOutputStream);
             }
         } catch (Exception e) {

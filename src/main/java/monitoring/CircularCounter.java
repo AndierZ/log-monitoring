@@ -1,5 +1,8 @@
 package monitoring;
 
+/**
+ * Compute the total and average for specified rolling window size
+ */
 public class CircularCounter {
 
     private final int[] array;
@@ -32,7 +35,7 @@ public class CircularCounter {
 
     public double getAverage() {
         if (ready) {
-            return (double)this.total / this.n;
+            return (double) this.total / this.n;
         }
         return Double.NaN;
     }

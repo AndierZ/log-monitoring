@@ -14,7 +14,12 @@ public class LogEntrySender implements MessageSender {
     private final Map<String, Integer> headers = new HashMap<>();
     private final LogEntryBuilder logEntryBuilder = new LogEntryBuilder();
 
-
+    /**
+     * Converts separated fields into a message, and send over specified output stream
+     * @param tokens
+     * @param dataOutputStream
+     * @throws IOException
+     */
     @Override
     public void send(String[] tokens, DataOutputStream dataOutputStream) throws IOException {
         if(headers.isEmpty()) {

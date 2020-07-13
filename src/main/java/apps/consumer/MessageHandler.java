@@ -16,6 +16,17 @@ public class MessageHandler<T extends MessageParser> {
 
     protected final Context context;
 
+    /**
+     * Instantiate an MessageHandler with a given context
+     * Create list of monitors specified in the config file
+     * All monitors specified must enforce the same typed parameter T
+     * @param context
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws IllegalAccessException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     */
     @SuppressWarnings("unchecked")
     public MessageHandler(Context context) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         this.context = context;

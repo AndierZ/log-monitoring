@@ -14,6 +14,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+/**
+ * @param <T> An implementation of MessageParser for a specific message
+ */
 public class MessageProcessingThread<T extends MessageParser> implements Runnable {
 
     private static Logger LOGGER = LoggerFactory.newLogger();
@@ -25,6 +28,19 @@ public class MessageProcessingThread<T extends MessageParser> implements Runnabl
     private final int msgType;
     private final T parser;
 
+
+    /**
+     * Reads bytes from given socket, parses fields into a readable object, and invokes callbacks on the message handler
+     * @param context   The given context
+     * @param socket    The socket for receiving messages
+     * @param msgType   The msgType consistent with the implemented type T
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws NoSuchMethodException
+     * @throws InvocationTargetException
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */
     public MessageProcessingThread(Context context, Socket socket, int msgType) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         this.socket = socket;
         this.handler = new MessageHandler<>(context);

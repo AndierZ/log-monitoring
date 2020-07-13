@@ -8,6 +8,13 @@ import org.json.simple.JSONObject;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
+
+/**
+ * Checks metric at regular fixed interval
+ * Keeps track of metrics by the key specified by the implementing class
+ * Outputs top metrics
+ * @param <T>
+ */
 public abstract class KeyedFixedStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
 
     private long prevTimestamp;

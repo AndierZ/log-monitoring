@@ -13,7 +13,7 @@ public class TotalHitsByRemoteHostMonitor extends KeyedRollingStatsMonitor<LogEn
     @Override
     protected RollingStatsMonitor newRollingStatsMonitor(String key) {
         TotalHitsMonitor m = new TotalHitsMonitor(context, config);
-        m.setKey("RemoteHost: " + key);
+        m.setPrefix("RemoteHost: " + key);
         return m;
     }
 

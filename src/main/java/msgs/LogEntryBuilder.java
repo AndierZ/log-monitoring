@@ -5,6 +5,9 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Builds binary message for a LogEntry message
+ */
 public class LogEntryBuilder {
 
     private final ByteBuffer buf = ByteBuffer.allocate(LogEntryMeta.MAX_LEN);

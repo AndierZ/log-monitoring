@@ -2,6 +2,9 @@ package msgs;
 
 import java.nio.ByteBuffer;
 
+/**
+ * Wrapper to read LogEntry fields out of a binary buffer
+ */
 public class LogEntryParser implements MessageParser {
 
     private int msgLen;
@@ -14,6 +17,10 @@ public class LogEntryParser implements MessageParser {
     private String authUser;
     private String method;
     private String route;
+
+    LogEntryParser() {
+
+    }
 
     @Override
     public void wrap(ByteBuffer buf) {

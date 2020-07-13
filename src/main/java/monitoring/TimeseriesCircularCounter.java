@@ -1,11 +1,13 @@
 package monitoring;
 
+/**
+ * Computes the average and total for a rolling window based on timestamp
+ */
 public class TimeseriesCircularCounter {
 
     private final CircularCounter counter;
     private final long interval;
     private final int buckets;
-
     private long lastTimestamp;
     private int currentVal;
 
@@ -19,6 +21,11 @@ public class TimeseriesCircularCounter {
         return increment(timestamp, 1);
     }
 
+    /**
+     * @param timestamp Timestamp for the datapoint
+     * @param diff Value to be added on top of the existing value
+     * @return Whether the increment caused the rolling window to move to the next slot
+     */
     public boolean increment(long timestamp, int diff) {
         boolean updated = false;
         if (lastTimestamp == 0) {

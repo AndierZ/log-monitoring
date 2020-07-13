@@ -22,8 +22,10 @@ public class LogReaderApp extends App {
         JSONObject config = context.getConfig();
         JSONArray logFiles = (JSONArray) config.get(Constants.LOG_FILES);
         JSONArray consumerAddresses = (JSONArray) config.get(Constants.CONSUMER_ADDRESSES);
+        // When running locally, option to get test log file from the resource directory
         boolean useResourceFile = (boolean) config.getOrDefault(Constants.LOG_FILES_IN_RESOURCE, false);
 
+        // Each log file is processed by a separate thread
         for(int i=0; i< logFiles.size(); i++) {
             String filePath;
             if (useResourceFile) {
