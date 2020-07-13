@@ -48,7 +48,7 @@ Project is largely comprised of two parts
     - Not fully supported, but the framework allows for the routing of different fields to different consumers. For example, we might want to send to one consumer (timestamp, remotehost) if remotehost is in a certain list, and send to another consumer (timestamp, status) when status is bad, and all (timestamp, section) to a 3rd consumer
 
 # Improvements
-- Add more test cases
+- Add more unit tests
 - Add regression test where we instantiate both the producer and consumer and simulate the entire process. A concept of ```Context``` is already in place which is supposed to serve as an interface that catches all inbound/outbound traffic. So we could supply the regression tests with dummy sockets via the ```Context``` and have the two applicaitons communicate directly without having to establish an actual connection.
 - Introduce heartbeats: Currently the "clock" on the consumer is essentially driven by the log messages themselves, and each alert has a smallest "step size". For example fixed alerts will only be evaluated every 10 seconds; even rolling alerts has a smallest unit by which it aggregates messages, which by default is 1 second. As a result, the last few log messages will always be left in the consumer's "cache" because the clock couldn't tick to the next step. One way to fix this is to have the producer send regular heartbeats with its timestamp.
 - Consideration regarding log lines with out of order timestamps: If the log file is written by multiple threads the timestamp might be out of order. The intuitive way is to add logic on the log generation side to ensure every log line is timestamped sequentially.
