@@ -14,6 +14,6 @@ public class ContextFactory {
     public static Context newContext(String configPath) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         JSONObject configObject = (JSONObject) parser.parse(new BufferedReader(new FileReader(new File(configPath))));
-        return new Context(configObject);
+        return new DevContext(configObject);
     }
 }

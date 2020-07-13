@@ -1,7 +1,7 @@
 package monitoring;
 
 import common.Constants;
-import msgs.LogEntryParser;
+import common.Context;
 import msgs.MessageParser;
 import org.json.simple.JSONObject;
 
@@ -16,8 +16,8 @@ public abstract class KeyedFixedStatsMonitor<T extends MessageParser> extends Si
     private final StringBuilder sb = new StringBuilder();
     protected final Map<String, Integer> hits = new HashMap<>();
 
-    public KeyedFixedStatsMonitor(JSONObject config) {
-        super(config);
+    public KeyedFixedStatsMonitor(Context context, JSONObject config) {
+        super(context, config);
         this.maxDisplayCount = ((Long) config.get(Constants.MAX_DISPLAY_COUNT)).intValue();
         this.interval = TimeUnit.SECONDS.toMillis((long) config.get(Constants.INTERVAL_SECS));
     }
@@ -50,16 +50,11 @@ public abstract class KeyedFixedStatsMonitor<T extends MessageParser> extends Si
                 }
             }
 
-            output(sb.substring(0, sb.length()-1));
+            context.getOutputSink().accept(sb.substring(0, sb.length()-1));
 
             this.hits.clear();
             prevTimestamp = timestamp;
         }
         increment(parser);
-    }
-
-    @Override
-    protected void output(String alert) {
-        System.out.println(alert);
     }
 }

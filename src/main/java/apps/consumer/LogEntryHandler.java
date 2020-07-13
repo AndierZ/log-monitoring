@@ -23,7 +23,7 @@ public class LogEntryHandler extends MessageHandler<LogEntryParser> {
         for(Object key : monitors.keySet()) {
             Class<?> clz = Class.forName(key.toString());
             if (StatsMonitor.class.isAssignableFrom(clz)) {
-                monitorList.add((StatsMonitor) clz.getConstructor(JSONObject.class).newInstance(monitors.get(key)));
+                monitorList.add((StatsMonitor) clz.getConstructor(Context.class, JSONObject.class).newInstance(context, monitors.get(key)));
             } else {
                 throw new RuntimeException("Monitor must be subclass of " + StatsMonitor.class.getName());
             }

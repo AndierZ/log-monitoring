@@ -1,6 +1,7 @@
 package monitoring;
 
 import common.Constants;
+import common.Context;
 import msgs.MessageParser;
 import org.json.simple.JSONObject;
 
@@ -14,19 +15,22 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
 
     private final long deadband;
     private final StringBuilder sb;
-    private final String key;
 
+    private String key;
     private long lastActivationTime;
 
-    public RollingStatsMonitor(JSONObject config) {
-        super(config);
+    public RollingStatsMonitor(Context context, JSONObject config) {
+        super(context, config);
         this.sb = new StringBuilder();
-        this.key = (String) config.get(Constants.KEY);
         long period = TimeUnit.SECONDS.toMillis((long) config.get(Constants.PERIOD_SECS));
         long interval = TimeUnit.SECONDS.toMillis((long) config.get(Constants.INTERVAL_SECS));
         this.threshold = ((Long) config.get(Constants.THRESHOLD)).doubleValue();
         this.deadband = TimeUnit.SECONDS.toMillis((long) config.get(Constants.DEADBAND_SECS));
         this.counter = new TimeseriesCircularCounter(period, interval);
+    }
+
+    protected void setKey(String key) {
+        this.key = key;
     }
 
     abstract protected double getCounterVal();
@@ -51,7 +55,7 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                     sb.append(" generated an alert - ");
                     sb.append(formatCounterVal());
                     sb.append(", triggered at time ").append(new Date(timestamp));
-                    output(sb.toString());
+                    context.getOutputSink().accept(sb.toString());
                     this.lastActivationTime = timestamp;
                 }
             } else {
@@ -65,15 +69,10 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                     sb.append(" alert recovered - ");
                     sb.append(formatCounterVal());
                     sb.append(", recovered at time ").append(new Date(timestamp));
-                    output(sb.toString());
+                    context.getOutputSink().accept(sb.toString());
                     this.lastActivationTime = 0;
                 }
             }
         }
-    }
-
-    @Override
-    protected void output(String alert) {
-        System.out.println(alert);
     }
 }

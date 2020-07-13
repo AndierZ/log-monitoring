@@ -3,7 +3,9 @@ package common;
 
 import org.json.simple.JSONObject;
 
-public class Context {
+import java.util.function.Consumer;
+
+public abstract class Context {
 
     protected final JSONObject config;
 
@@ -15,5 +17,5 @@ public class Context {
         return config;
     }
 
-
+    abstract public Consumer<String> getOutputSink();
 }

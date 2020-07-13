@@ -1,19 +1,20 @@
 package monitoring;
 
+import common.Context;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
 public class TotalHitsByRemoteHostMonitor extends KeyedRollingStatsMonitor<LogEntryParser> {
 
-    public TotalHitsByRemoteHostMonitor(JSONObject config) {
-        super(config);
+    public TotalHitsByRemoteHostMonitor(Context context, JSONObject config) {
+        super(context, config);
     }
 
     @Override
-    protected RollingStatsMonitor newRollingStatsMonitor(String key, JSONObject config) {
-        JSONObject clone = new JSONObject(config);
-        clone.put("key", "RemoteHost: " + key);
-        return new TotalHitsMonitor(clone);
+    protected RollingStatsMonitor newRollingStatsMonitor(String key) {
+        TotalHitsMonitor m = new TotalHitsMonitor(context, config);
+        m.setKey("RemoteHost: " + key);
+        return m;
     }
 
     @Override

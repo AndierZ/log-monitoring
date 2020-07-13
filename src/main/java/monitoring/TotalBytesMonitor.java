@@ -1,12 +1,13 @@
 package monitoring;
 
+import common.Context;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
 public class TotalBytesMonitor extends RollingStatsMonitor<LogEntryParser> {
 
-    public TotalBytesMonitor(JSONObject config) {
-        super(config);
+    public TotalBytesMonitor(Context context, JSONObject config) {
+        super(context, config);
     }
 
     @Override
