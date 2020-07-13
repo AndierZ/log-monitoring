@@ -2,12 +2,13 @@ package monitoring;
 
 import common.Constants;
 import msgs.LogEntryParser;
+import msgs.MessageParser;
 import org.json.simple.JSONObject;
 
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public abstract class KeyedFixedStatsMonitor extends SingleStatsMonitor {
+public abstract class KeyedFixedStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
 
     private long prevTimestamp;
     private final long interval;
@@ -21,7 +22,7 @@ public abstract class KeyedFixedStatsMonitor extends SingleStatsMonitor {
         this.interval = TimeUnit.SECONDS.toMillis((long) config.get(Constants.INTERVAL_SECS));
     }
 
-    public void onMsg(LogEntryParser parser) {
+    public void onMsg(T parser) {
         long timestamp = parser.getTimestamp();
         if (prevTimestamp == 0) {
             prevTimestamp = timestamp;

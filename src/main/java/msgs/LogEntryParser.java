@@ -49,6 +49,7 @@ public class LogEntryParser implements MessageParser {
         return msgType;
     }
 
+    @Override
     public long getTimestamp() {
         return timestamp;
     }

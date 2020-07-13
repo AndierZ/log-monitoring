@@ -1,13 +1,13 @@
 package monitoring;
 
 import common.Constants;
-import msgs.LogEntryParser;
+import msgs.MessageParser;
 import org.json.simple.JSONObject;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-public abstract class RollingStatsMonitor extends SingleStatsMonitor {
+public abstract class RollingStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
 
     protected final TimeseriesCircularCounter counter;
     protected final double threshold;
@@ -33,7 +33,7 @@ public abstract class RollingStatsMonitor extends SingleStatsMonitor {
 
     abstract protected String formatCounterVal();
 
-    public void onMsg(LogEntryParser parser) {
+    public void onMsg(T parser) {
         long timestamp = parser.getTimestamp();
         boolean updated = increment(parser);
         if (!updated) {

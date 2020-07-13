@@ -1,15 +1,15 @@
 package monitoring;
 
-import msgs.LogEntryParser;
+import msgs.MessageParser;
 import org.json.simple.JSONObject;
 
-public abstract class SingleStatsMonitor extends StatsMonitor {
+public abstract class SingleStatsMonitor<T extends MessageParser> extends StatsMonitor<T> {
 
     public SingleStatsMonitor(JSONObject config) {
         super(config);
     }
 
-    abstract protected boolean increment(LogEntryParser parser);
+    abstract protected boolean increment(T parser);
 
     abstract protected String alertName();
 

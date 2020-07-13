@@ -3,7 +3,7 @@ package monitoring;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
-public class SectionHitsMonitor extends KeyedFixedStatsMonitor {
+public class SectionHitsMonitor extends KeyedFixedStatsMonitor<LogEntryParser> {
 
     public SectionHitsMonitor(JSONObject config) {
         super(config);

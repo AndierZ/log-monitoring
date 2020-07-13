@@ -3,7 +3,7 @@ package monitoring;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
-public class TotalBytesMonitor extends RollingStatsMonitor {
+public class TotalBytesMonitor extends RollingStatsMonitor<LogEntryParser> {
 
     public TotalBytesMonitor(JSONObject config) {
         super(config);

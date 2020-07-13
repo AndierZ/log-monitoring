@@ -3,7 +3,7 @@ package monitoring;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
-public class TotalHitsByRemoteHostMonitor extends KeyedRollingStatsMonitor {
+public class TotalHitsByRemoteHostMonitor extends KeyedRollingStatsMonitor<LogEntryParser> {
 
     public TotalHitsByRemoteHostMonitor(JSONObject config) {
         super(config);
