@@ -12,7 +12,7 @@ Application for log monitoring and alert generation.
 - Simple packaging and distribution
 
 # Design considerations
-- Each log file should be processed by a separate thread in a separate process, decoupled from the alerting logic
+- Log file is processed by a separate thread in a separate process, so entire process is asynchronous.
 - Communicate over the network so we can easily scale up by having multiple producers (log file parsing) and consumers (generating alerts)
 - Support long running producers if so desired
 - Support the parsing of different log files into different messages
@@ -31,8 +31,18 @@ Project is largely comprised oftwo parts
       - <? extends StatsMonitor>: Processes each log message and computes statistics
 
 # Maintainability and Scalability
-- New messages
-- Sharding: by file, by fields in the same file
+- Adding new alerts
+  - New alerting logic can be added by sub-classing one of the super classes
+    - RollingStatsMonitor: For generating alerts over a rolling window
+    - KeyedRollingStatsMonitor: For generating alerts based on keys specified by the user, over a rolling window
+    - RankedFixedStatsMonitor: For genearting alerts with ranked values over fixed windows
+- Adding new messages
+  - New message can be created by following how the LogEntry message is supported. Framework already supports it.
+  - If the number of different messages becomes big, we could consider using code generation for generating message codec.
+- Scale horizontally
+  - Different producers for different log files
+  - Different producers for the same file but different fields
+    - For example, route all (timestamp, remoteuser) to one consumer, route all (timestamp, status) to a different consumer.
 
 # Improvements
 - Add more test cases
