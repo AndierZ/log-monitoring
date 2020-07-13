@@ -37,7 +37,7 @@ Project is largely comprised of two parts
     - KeyedRollingStatsMonitor: For generating keyed alerts over a rolling window
     - RankedFixedStatsMonitor: For genearting alerts with ranked values over fixed windows
   - Add the new module in the ```monitor_list``` property
-  - Code can be made more generic and eliminate the need to write subclasses altogether; But that'll make unit testing a bit harder and the whole structure more obscure
+  - Code can be made more generic to eliminate the need to write subclasses altogether; But that'll make unit testing a bit harder and the whole structure more obscure
 - Adding new messages
   - If we need to process different log files with completely different content
   - New message can be created by following how the LogEntry message is supported
