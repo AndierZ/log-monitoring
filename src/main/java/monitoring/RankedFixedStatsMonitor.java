@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * Checks metric at regular fixed interval
- * Keeps track of metrics by the key specified by the implementing class
+ * Rank the metrics based on the key specified by the implementing class
  * Outputs top metrics
  * @param <T>
  */
-public abstract class KeyedFixedStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
+public abstract class RankedFixedStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
 
     private long prevTimestamp;
     private final long interval;
@@ -23,7 +23,7 @@ public abstract class KeyedFixedStatsMonitor<T extends MessageParser> extends Si
     private final StringBuilder sb = new StringBuilder();
     protected final Map<String, Integer> hits = new HashMap<>();
 
-    public KeyedFixedStatsMonitor(Context context, JSONObject config) {
+    public RankedFixedStatsMonitor(Context context, JSONObject config) {
         super(context, config);
         this.maxDisplayCount = ((Long) config.get(Constants.MAX_DISPLAY_COUNT)).intValue();
         this.interval = TimeUnit.SECONDS.toMillis((long) config.get(Constants.INTERVAL_SECS));
