@@ -21,6 +21,14 @@ Application for log monitoring and alert generation.
 - Be as memory efficient as possible, for example, by avoiding creating new objects for each log message
 
 # Code structure and explanation
+Project is largely comprised oftwo parts
+- LogReaderApp (producer): Gets all log files and creates MessageDistributionThread for each file 
+  - MessageDistributionThread: Parses the file and passes each line to LogEntrySender
+    - LogEntrySender: Converts line to binary message and sends to the output stream
+- ConsoleAlertingApp (consumer): Awaits incoming connection and creates MessageProcessingThread for each new connection
+  - MessageProcessingThread: Parses binary message into readable objects and pass on to MessageHandler
+    - MessageHandler: Route each message through the list of <? extends StatsMonitor>
+      - <? extends StatsMonitor>: Processes each log message and computes statistics
 
 # Maintainability and Scalability
 - New messages
@@ -28,12 +36,11 @@ Application for log monitoring and alert generation.
 
 # Improvements
 - Add more test cases
-- Introduce heartbeats: Currently the "clock" on the consumer is essentially driven by the log messages themselves, and each alert has a smallest "step size". For example fixed alerts will only fire every 10 seconds; even rolling alerts has a smallest unit by which it aggregates messages, which by default is 1 second. As a result, the last few log messages will always be left in the consumer's "cache" because the clock couldn't tick to the next step. One way to fix this is to have the producer send heartbeat messages with its timestamp.
+- Introduce heartbeats: Currently the "clock" on the consumer is essentially driven by the log messages themselves, and each alert has a smallest "step size". For example fixed alerts will only fire every 10 seconds; even rolling alerts has a smallest unit by which it aggregates messages, which by default is 1 second. As a result, the last few log messages will always be left in the consumer's "cache" because the clock couldn't tick to the next step. One way to fix this is to have the producer send regular heartbeat messages with its timestamp.
 - Think about dealing with log lines with timestamps out of order: If the log file is written by multiple threads the timestamp might be out of order. The intuitive way is to add logic on the log generation side to ensure every log line is written sequentially.
 - Use codegen for message codec: Ideally we could specify the message structure in config file and have code generation for the actual building and parsing logic, e.g. flat buffer.
 - Introduce redundancy for the consumer: When a consumer goes down, producer should retry with a list of backup consumers.
 - Make backup consumers always in sync with the primary consumer: So the underlying states for the alerts can be preserved. One option could have all the backup instances listen to the same messages from the producer, and only have the primary instance generate alert. When it goes down, implement leader election logic to promote one backup instance as the leader.
-- Manage config files separately: Config files are specified when launching the jar, so we can manage them separate from the jar. Employ proper version control for the configs, build pipe line for updating and distributing config changes to all machines.
-Manage the apps using kubernetes
+- Manage config files separately: Config files are specified when launching the jar, so we can manage them separately. Employ proper version control, build pipe lines for updating and distributing config changes to all machines.
 
-# How to run
+# How to setup and run
