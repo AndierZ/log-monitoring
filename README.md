@@ -50,11 +50,11 @@ Project is largely comprised of three parts
   - If the number of different messages becomes big, we could consider using code generation for generating message codec
 - Scale horizontally
   - Across different log files
-    - For example, we could setup 10 producers across 20 log files and 4 consumers
+    - For example, we could process 20 log files across 10 producers and 4 consumers
   - Across different fields in the same log file
     - The framework allows for the routing of different fields to different consumers. For example, we might want to send to one consumer (timestamp, remotehost) if remotehost is in a certain list, and send to another consumer (timestamp, status) when status is bad, and all (timestamp, section) to a 3rd consumer
-  - Treating each moving average as stream
-    - Instead of calculating moving averages internally and directly generate alerts from it, we output the moving average as streams. And from there we can have another component generate alerts, rank or do arithmics on them. This gives us maximum flexibility in case we want more real time statistics, or we want to rank them in real time and etc. It would also allow us to better modularize the system because each component has simpler functions.
+  - Treat each moving average as a stream
+    - Instead of calculating moving averages internally and directly generate alerts from it, we could output the moving average as streams. And from there we can have another component generate alerts, rank or do arithmics on them. This gives us maximum flexibility in case we want more real time statistics, or we want to rank them in real time and etc. It would also allow us to better modularize the system because each component has simpler functions.
 
 # Improvements
 - Add more unit tests
