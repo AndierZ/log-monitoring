@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class SectionHitsMonitorTest {
+public class RankedSectionHitsMonitorTest {
 
     @Test
     public void test1() {
@@ -14,7 +14,7 @@ public class SectionHitsMonitorTest {
         config.put("max_display_count", 2l);
         config.put("interval_secs", 5l);
         TestContext context = new TestContext(null);
-        SectionHitsMonitor monitor = new SectionHitsMonitor(context, config);
+        RankedSectionHitsMonitor monitor = new RankedSectionHitsMonitor(context, config);
 
         long timestamp = 10_000;
         MutableLogEntryParser msg = new MutableLogEntryParser();
@@ -63,7 +63,7 @@ public class SectionHitsMonitorTest {
         Assert.assertEquals(alert, context.getLastAlert());
     }
 
-    private static long sendMessages(long timestamp, String section, int count, int interval, SectionHitsMonitor monitor, MutableLogEntryParser msg) {
+    private static long sendMessages(long timestamp, String section, int count, int interval, RankedSectionHitsMonitor monitor, MutableLogEntryParser msg) {
         for (int i = 0; i < count; i++) {
             msg.setTimestamp(timestamp);
             msg.setSection(section);

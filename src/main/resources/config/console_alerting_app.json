@@ -2,6 +2,10 @@
   "port": 12088,
   "monitor_list" :
     {
+      "monitoring.RankedSectionHitsMonitor": {
+          "interval_secs" : 60,
+          "max_display_count" : 3,
+      },
       "monitoring.AverageHitsMonitor": {
         "period_secs" : 120,
         "interval_secs" : 1,

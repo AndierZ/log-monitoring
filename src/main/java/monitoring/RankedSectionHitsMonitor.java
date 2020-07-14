@@ -7,9 +7,9 @@ import org.json.simple.JSONObject;
 /**
  * Keeps track of hits by section over fixed period of time and prints sections with top hits
  */
-public class SectionHitsMonitor extends RankedFixedStatsMonitor<LogEntryParser> {
+public class RankedSectionHitsMonitor extends RankedFixedStatsMonitor<LogEntryParser> {
 
-    public SectionHitsMonitor(Context context, JSONObject config) {
+    public RankedSectionHitsMonitor(Context context, JSONObject config) {
         super(context, config);
     }
 
