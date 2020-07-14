@@ -20,22 +20,22 @@ public class CircularCounter {
         total -= array[cur];
         array[cur] = val;
         total += array[cur];
-        this.cur = (this.cur + 1) % n;
-        if (!ready && this.cur == 0) {
+        cur = (cur + 1) % n;
+        if (!ready && cur == 0) {
             ready = true;
         }
     }
 
     public int getTotal() {
-        if (this.ready) {
-            return this.total;
+        if (ready) {
+            return total;
         }
         return -1;
     }
 
     public double getAverage() {
         if (ready) {
-            return (double) this.total / this.n;
+            return (double) total / n;
         }
         return Double.NaN;
     }
@@ -45,10 +45,10 @@ public class CircularCounter {
     }
 
     public int size() {
-        return this.n;
+        return n;
     }
 
     public int get(int i) {
-        return this.array[i];
+        return array[i];
     }
 }

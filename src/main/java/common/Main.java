@@ -38,7 +38,7 @@ public class Main {
         App app;
         try {
             app = (App) clz.getConstructor(Context.class).newInstance(context);
-        } catch (InstantiationException|IllegalAccessException|InvocationTargetException|NoSuchMethodException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
             LOGGER.error("Error instantiating app class.");
             throw new IllegalArgumentException(e);
         }

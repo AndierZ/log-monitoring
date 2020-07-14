@@ -16,14 +16,15 @@ public class LogEntrySender implements MessageSender {
 
     /**
      * Converts separated fields into a message, and send over specified output stream
+     *
      * @param tokens
      * @param dataOutputStream
      * @throws IOException
      */
     @Override
     public void send(String[] tokens, DataOutputStream dataOutputStream) throws IOException {
-        if(headers.isEmpty()) {
-            for(int i=0; i<tokens.length; i++) {
+        if (headers.isEmpty()) {
+            for (int i = 0; i < tokens.length; i++) {
                 headers.put(tokens[i], i);
             }
         } else {
@@ -31,7 +32,7 @@ public class LogEntrySender implements MessageSender {
             String section = tokens[headers.get(Constants.REQUEST)].split(" ")[1].split("\\/")[1];
             String remoteHost = tokens[headers.get(Constants.REMOTE_HOST)];
             int bytes = Integer.valueOf(tokens[headers.get(Constants.BYTES)]);
-            this.logEntryBuilder.newMsg().setTimestamp(timestamp).setSection(section).setRemoteHost(remoteHost).setBytes(bytes).send(dataOutputStream);
+            logEntryBuilder.newMsg().setTimestamp(timestamp).setSection(section).setRemoteHost(remoteHost).setBytes(bytes).send(dataOutputStream);
         }
     }
 }

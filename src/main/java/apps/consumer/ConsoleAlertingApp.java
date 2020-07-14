@@ -27,8 +27,8 @@ public class ConsoleAlertingApp extends App {
 
     @Override
     protected void start() throws Exception {
-        while(true) {
-            Socket socket = this.serverSocket.accept();
+        while (true) {
+            Socket socket = serverSocket.accept();
             MessageProcessingThread<LogEntryParser> t = new MessageProcessingThread<>(context, socket, LogEntryMeta.MSG_TYPE);
             executorService.submit(t);
         }

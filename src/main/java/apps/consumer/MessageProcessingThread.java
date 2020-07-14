@@ -43,10 +43,10 @@ public class MessageProcessingThread<T extends MessageParser> implements Runnabl
      */
     public MessageProcessingThread(Context context, Socket socket, int msgType) throws IOException, ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         this.socket = socket;
+        this.msgType = msgType;
         this.handler = new MessageHandler<>(context);
         this.dataInputStream = new DataInputStream(socket.getInputStream());
         this.buf = ByteBuffer.allocate(LogEntryMeta.MAX_LEN);
-        this.msgType = msgType;
         this.parser = (T) ParserFactory.getParser(msgType);
     }
 
@@ -54,15 +54,15 @@ public class MessageProcessingThread<T extends MessageParser> implements Runnabl
     public void run() {
         while(true) {
             try {
-                this.buf.clear();
+                buf.clear();
                 int msgLength = dataInputStream.readInt();
                 // 4 for the message length
                 int bytesRead = 4;
-                this.buf.putInt(msgLength);
+                buf.putInt(msgLength);
 
                 int msgType = dataInputStream.readInt();
                 bytesRead += 4;
-                this.buf.putInt(msgType);
+                buf.putInt(msgType);
 
                 while(bytesRead < msgLength) {
                     buf.put(dataInputStream.readByte());
@@ -85,7 +85,7 @@ public class MessageProcessingThread<T extends MessageParser> implements Runnabl
             }
         }
         try {
-            this.socket.close();
+            socket.close();
         } catch (IOException e) {
             LOGGER.error("Socket close exception", e);
         }

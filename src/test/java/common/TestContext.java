@@ -23,10 +23,10 @@ public class TestContext extends Context {
     }
 
     public int outputCount() {
-        return this.outputs.size();
+        return outputs.size();
     }
 
     public String getLastAlert() {
-        return this.outputs.get(this.outputs.size()-1);
+        return outputs.get(outputs.size() - 1);
     }
 }

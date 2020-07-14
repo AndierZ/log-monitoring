@@ -9,6 +9,7 @@ import java.util.Map;
 
 /**
  * Computes stats by keys, each stat based on its own rolling window
+ *
  * @param <T>
  */
 public abstract class KeyedRollingStatsMonitor<T extends MessageParser> extends StatsMonitor<T> {
@@ -22,7 +23,7 @@ public abstract class KeyedRollingStatsMonitor<T extends MessageParser> extends 
     @Override
     public void onMsg(T parser) {
         String key = getKey(parser);
-        monitors.computeIfAbsent(key, k -> newRollingStatsMonitor(key)).onMsg(parser);
+        this.monitors.computeIfAbsent(key, k -> newRollingStatsMonitor(key)).onMsg(parser);
     }
 
     abstract protected RollingStatsMonitor newRollingStatsMonitor(String key);

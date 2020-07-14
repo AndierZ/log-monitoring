@@ -67,10 +67,10 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
             return;
         }
 
-        if (this.counter.isReady()) {
+        if (counter.isReady()) {
             if (getCounterVal() >= threshold) {
                 // Raise alert if haven't already
-                if (this.lastActivationTime == 0) {
+                if (lastActivationTime == 0) {
                     sb.setLength(0);
                     sb.append(new Date(timestamp));
                     sb.append(". ");
@@ -80,11 +80,11 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                     sb.append(formatCounterVal());
                     sb.append(", triggered at time ").append(new Date(timestamp));
                     context.out.alertSink.accept(sb.toString());
-                    this.lastActivationTime = timestamp;
+                    lastActivationTime = timestamp;
                 }
             } else {
                 // Reset alert if traffic has dropped and it's been more than one second
-                if (this.lastActivationTime > 0 && timestamp - lastActivationTime >= deadband) {
+                if (lastActivationTime > 0 && timestamp - lastActivationTime >= deadband) {
                     sb.setLength(0);
                     sb.append(new Date(timestamp));
                     sb.append(". ");
@@ -94,7 +94,7 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                     sb.append(formatCounterVal());
                     sb.append(", recovered at time ").append(new Date(timestamp));
                     context.out.alertSink.accept(sb.toString());
-                    this.lastActivationTime = 0;
+                    lastActivationTime = 0;
                 }
             }
         }

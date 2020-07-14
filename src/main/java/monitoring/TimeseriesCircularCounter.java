@@ -12,8 +12,8 @@ public class TimeseriesCircularCounter {
     private int currentVal;
 
     public TimeseriesCircularCounter(long length, long interval) {
-        this.buckets = (int) (length / interval);
         this.interval = interval;
+        this.buckets = (int) (length / interval);
         this.counter = new CircularCounter(buckets);
     }
 
@@ -23,17 +23,17 @@ public class TimeseriesCircularCounter {
 
     /**
      * @param timestamp Timestamp for the datapoint
-     * @param diff Value to be added on top of the existing value
+     * @param diff      Value to be added on top of the existing value
      * @return Whether the increment caused the rolling window to move to the next slot
      */
     public boolean increment(long timestamp, int diff) {
         boolean updated = false;
         if (lastTimestamp == 0) {
             lastTimestamp = timestamp;
-        } else if (timestamp - lastTimestamp >= this.interval) {
+        } else if (timestamp - lastTimestamp >= interval) {
             // push at most n+1 times which will clear the entire array
-            int steps = (int) Math.min(buckets+1, (timestamp - lastTimestamp) / interval);
-            for(int i=0; i<steps; i++) {
+            int steps = (int) Math.min(buckets + 1, (timestamp - lastTimestamp) / interval);
+            for (int i = 0; i < steps; i++) {
                 counter.push(currentVal);
                 currentVal = 0;
             }
@@ -54,14 +54,14 @@ public class TimeseriesCircularCounter {
     }
 
     public boolean isReady() {
-        return this.counter.isReady();
+        return counter.isReady();
     }
 
     public int size() {
-        return this.counter.size();
+        return counter.size();
     }
 
     public int get(int i) {
-        return this.counter.get(i);
+        return counter.get(i);
     }
 }

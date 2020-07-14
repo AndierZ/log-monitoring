@@ -21,9 +21,9 @@ public class MessageDistributionThread implements Runnable {
     private final MessageSender sender;
 
     /**
-     * @param filePath Path to the log file to be parsed and sent
+     * @param filePath          Path to the log file to be parsed and sent
      * @param consumerAddresses List of addresses to send messages to
-     * @param sender Sender that builds the message and send to output stream
+     * @param sender            Sender that builds the message and send to output stream
      * @throws IOException
      */
     public MessageDistributionThread(String filePath, JSONArray consumerAddresses, MessageSender sender) throws IOException {
@@ -46,15 +46,15 @@ public class MessageDistributionThread implements Runnable {
     @Override
     public void run() {
         try {
-            for (String[] strings : this.csvReader) {
-                this.sender.send(strings, this.dataOutputStream);
+            for (String[] strings : csvReader) {
+                sender.send(strings, dataOutputStream);
             }
         } catch (Exception e) {
             LOGGER.error("BufferedReader stopped unexpectedly.", e);
         } finally {
             try {
-                this.csvReader.close();
-                this.dataOutputStream.close();
+                csvReader.close();
+                dataOutputStream.close();
             } catch (IOException e) {
                 LOGGER.error("MessageDistributionThread close failed.", e);
             }

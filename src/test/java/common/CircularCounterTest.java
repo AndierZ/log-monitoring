@@ -10,7 +10,7 @@ public class CircularCounterTest {
     private static final double DELTA = 1e-4;
 
     @Test
-    public void testPlainCircularCounter(){
+    public void testPlainCircularCounter() {
         CircularCounter c = new CircularCounter(5);
 
         int[] target = new int[5];
@@ -53,7 +53,7 @@ public class CircularCounterTest {
     }
 
     @Test
-    public void testTimeseriesCircularCounter(){
+    public void testTimeseriesCircularCounter() {
         int period = 60;
         int interval = 20;
         int[] target = new int[3];
@@ -109,13 +109,13 @@ public class CircularCounterTest {
     }
 
     private static void assertArrayEquals(int[] target, CircularCounter counter) {
-        for(int i=0; i<target.length; i++) {
+        for (int i = 0; i < target.length; i++) {
             Assert.assertEquals(target[i], counter.get(i));
         }
     }
 
     private static void assertArrayEquals(int[] target, TimeseriesCircularCounter counter) {
-        for(int i=0; i<target.length; i++) {
+        for (int i = 0; i < target.length; i++) {
             Assert.assertEquals(target[i], counter.get(i));
         }
     }

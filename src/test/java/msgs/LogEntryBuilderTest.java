@@ -16,16 +16,16 @@ public class LogEntryBuilderTest {
 
     @Before
     public void setup() {
-        this.out = new DummyOutputStream();
+        out = new DummyOutputStream();
     }
 
     @Test
     public void test1() throws IOException {
         // the first message
         LogEntryBuilder builder = new LogEntryBuilder();
-        builder.newMsg().setTimestamp(100).setSection("api").send(this.out);
+        builder.newMsg().setTimestamp(100).setSection("api").send(out);
 
-        ByteBuffer buf = createBuffer(this.out.getBytes());
+        ByteBuffer buf = createBuffer(out.getBytes());
         LogEntryParser parser = new LogEntryParser();
         parser.wrap(buf);
 
@@ -52,12 +52,12 @@ public class LogEntryBuilderTest {
         Assert.assertEquals(100, parser.getTimestamp());
         Assert.assertEquals("api", parser.getSection());
 
-        this.out.reset();
+        out.reset();
 
         // the first message
-        builder.newMsg().setTimestamp(200).setSection("report").send(this.out);
+        builder.newMsg().setTimestamp(200).setSection("report").send(out);
 
-        buf = createBuffer(this.out.getBytes());
+        buf = createBuffer(out.getBytes());
         parser.wrap(buf);
 
         // 7 -> 10 ("api" -> "report")
@@ -73,12 +73,12 @@ public class LogEntryBuilderTest {
         Assert.assertEquals(200, parser.getTimestamp());
         Assert.assertEquals("report", parser.getSection());
 
-        this.out.reset();
+        out.reset();
     }
 
     private ByteBuffer createBuffer(List<Byte> bytes) {
         ByteBuffer buf = ByteBuffer.allocate(bytes.size());
-        for(int i=0; i<bytes.size(); i++) {
+        for (int i = 0; i < bytes.size(); i++) {
             buf.put(bytes.get(i));
         }
         buf.flip();
@@ -96,7 +96,7 @@ public class LogEntryBuilderTest {
 
         @Override
         public void write(byte[] array, int offset, int length) {
-            for(int i=offset; i<length; i++) {
+            for (int i = offset; i < length; i++) {
                 cache.add(array[i]);
             }
         }
@@ -106,7 +106,7 @@ public class LogEntryBuilderTest {
         }
 
         private List<Byte> getBytes() {
-            return this.cache;
+            return cache;
         }
     }
 }

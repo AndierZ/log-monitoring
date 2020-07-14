@@ -54,7 +54,7 @@ public class TotalHitsMonitorTest {
     }
 
     private static long sendMessages(long timestamp, int count, int interval, TotalHitsMonitor monitor, MutableLogEntryParser msg) {
-        for(int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             msg.setTimestamp(timestamp);
             monitor.onMsg(msg);
             timestamp += interval;

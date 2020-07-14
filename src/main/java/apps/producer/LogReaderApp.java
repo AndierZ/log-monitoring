@@ -26,7 +26,7 @@ public class LogReaderApp extends App {
         boolean useResourceFile = (boolean) config.getOrDefault(Constants.LOG_FILES_IN_RESOURCE, false);
 
         // Each log file is processed by a separate thread
-        for(int i=0; i< logFiles.size(); i++) {
+        for (int i = 0; i < logFiles.size(); i++) {
             String filePath;
             if (useResourceFile) {
                 filePath = LogReaderApp.class.getClassLoader().getResource(logFiles.get(i).toString()).getFile();
@@ -37,16 +37,16 @@ public class LogReaderApp extends App {
             fileParsers.add(new MessageDistributionThread(filePath, consumerAddresses, new LogEntrySender()));
         }
 
-        this.executorService = Executors.newScheduledThreadPool(10);
+        executorService = Executors.newScheduledThreadPool(10);
     }
 
     @Override
     protected void start() {
-        this.fileParsers.forEach(this.executorService::submit);
+        fileParsers.forEach(executorService::submit);
     }
 
     @Override
     protected void shutdown() {
-        this.executorService.shutdown();
+        executorService.shutdown();
     }
 }

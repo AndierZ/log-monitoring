@@ -1,0 +1,81 @@
+Thu Feb 07 16:11:10 EST 2019. Section hit (top 3): (api - 54), (report - 27)
+Thu Feb 07 16:11:20 EST 2019. Section hit (top 3): (api - 61), (report - 30)
+Thu Feb 07 16:11:30 EST 2019. Section hit (top 3): (api - 65), (report - 33)
+Thu Feb 07 16:11:40 EST 2019. Section hit (top 3): (api - 60), (report - 30)
+Thu Feb 07 16:11:50 EST 2019. Section hit (top 3): (api - 60), (report - 27)
+Thu Feb 07 16:12:00 EST 2019. Section hit (top 3): (api - 58), (report - 30)
+Thu Feb 07 16:12:10 EST 2019. Section hit (top 3): (api - 138), (report - 30)
+Thu Feb 07 16:12:09 EST 2019. RemoteHost: 10.0.0.1 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:09 EST 2019
+Thu Feb 07 16:12:20 EST 2019. Section hit (top 3): (api - 152), (report - 30)
+Thu Feb 07 16:12:30 EST 2019. Section hit (top 3): (api - 149), (report - 30)
+Thu Feb 07 16:12:31 EST 2019. RemoteHost: 10.0.0.2 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:31 EST 2019
+Thu Feb 07 16:12:32 EST 2019. RemoteHost: 10.0.0.2 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:32 EST 2019
+Thu Feb 07 16:12:35 EST 2019. RemoteHost: 10.0.0.2 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:35 EST 2019
+Thu Feb 07 16:12:36 EST 2019. RemoteHost: 10.0.0.2 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:36 EST 2019
+Thu Feb 07 16:12:40 EST 2019. Section hit (top 3): (api - 160), (report - 30)
+Thu Feb 07 16:12:43 EST 2019. RemoteHost: 10.0.0.1 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:43 EST 2019
+Thu Feb 07 16:12:44 EST 2019. RemoteHost: 10.0.0.1 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:44 EST 2019
+Thu Feb 07 16:12:45 EST 2019. RemoteHost: 10.0.0.1 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:45 EST 2019
+Thu Feb 07 16:12:46 EST 2019. RemoteHost: 10.0.0.2 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:46 EST 2019
+Thu Feb 07 16:12:49 EST 2019. RemoteHost: 10.0.0.2 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:49 EST 2019
+Thu Feb 07 16:12:50 EST 2019. Section hit (top 3): (api - 139), (report - 30)
+Thu Feb 07 16:12:51 EST 2019. RemoteHost: 10.0.0.5 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:51 EST 2019
+Thu Feb 07 16:12:52 EST 2019. RemoteHost: 10.0.0.1 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:52 EST 2019
+Thu Feb 07 16:12:53 EST 2019. RemoteHost: 10.0.0.2 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:53 EST 2019
+Thu Feb 07 16:12:54 EST 2019. RemoteHost: 10.0.0.1 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:54 EST 2019
+Thu Feb 07 16:12:55 EST 2019. RemoteHost: 10.0.0.1 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:12:55 EST 2019
+Thu Feb 07 16:12:54 EST 2019. RemoteHost: 10.0.0.2 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:12:54 EST 2019
+Thu Feb 07 16:13:00 EST 2019. Section hit (top 3): (api - 160), (report - 30)
+Thu Feb 07 16:13:00 EST 2019. High total bytes generated an alert - traffic = 1.8918218612670898 Mb, triggered at time Thu Feb 07 16:13:00 EST 2019
+Thu Feb 07 16:13:00 EST 2019. High traffic generated an alert - hits = 13, triggered at time Thu Feb 07 16:13:00 EST 2019
+Thu Feb 07 16:13:02 EST 2019. RemoteHost: 10.0.0.5 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:13:02 EST 2019
+Thu Feb 07 16:13:04 EST 2019. RemoteHost: 10.0.0.1 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:13:04 EST 2019
+Thu Feb 07 16:13:10 EST 2019. Section hit (top 3): (api - 24), (report - 13)
+Thu Feb 07 16:13:20 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:13:30 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:13:40 EST 2019. Section hit (top 3): (api - 19), (report - 9)
+Thu Feb 07 16:13:50 EST 2019. Section hit (top 3): (api - 21), (report - 11)
+Thu Feb 07 16:14:00 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:14:06 EST 2019. High traffic alert recovered - hits = 9, recovered at time Thu Feb 07 16:14:06 EST 2019
+Thu Feb 07 16:14:10 EST 2019. Section hit (top 3): (api - 18), (report - 9)
+Thu Feb 07 16:14:20 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:14:29 EST 2019. High total bytes alert recovered - traffic = 0.9691324234008789 Mb, recovered at time Thu Feb 07 16:14:29 EST 2019
+Thu Feb 07 16:14:30 EST 2019. Section hit (top 3): (api - 22), (report - 11)
+Thu Feb 07 16:14:40 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:14:50 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:15:00 EST 2019. Section hit (top 3): (api - 21), (report - 10)
+Thu Feb 07 16:15:10 EST 2019. Section hit (top 3): (api - 20), (report - 10)
+Thu Feb 07 16:15:20 EST 2019. Section hit (top 3): (api - 19), (report - 9)
+Thu Feb 07 16:15:30 EST 2019. Section hit (top 3): (api - 20), (report - 11)
+Thu Feb 07 16:15:35 EST 2019. RemoteHost: 10.0.0.1 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:15:35 EST 2019
+Thu Feb 07 16:15:37 EST 2019. RemoteHost: 10.0.0.2 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:15:37 EST 2019
+Thu Feb 07 16:15:40 EST 2019. Section hit (top 3): (api - 229), (report - 27)
+Thu Feb 07 16:15:40 EST 2019. RemoteHost: 10.0.0.5 - High traffic generated an alert - hits = 6, triggered at time Thu Feb 07 16:15:40 EST 2019
+Thu Feb 07 16:15:50 EST 2019. Section hit (top 3): (api - 249), (report - 30)
+Thu Feb 07 16:15:51 EST 2019. High total bytes generated an alert - traffic = 1.011155128479004 Mb, triggered at time Thu Feb 07 16:15:51 EST 2019
+Thu Feb 07 16:15:55 EST 2019. RemoteHost: 10.0.0.5 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:15:55 EST 2019
+Thu Feb 07 16:15:56 EST 2019. RemoteHost: 10.0.0.5 - High traffic generated an alert - hits = 5, triggered at time Thu Feb 07 16:15:56 EST 2019
+Thu Feb 07 16:16:00 EST 2019. Section hit (top 3): (api - 249), (report - 30)
+Thu Feb 07 16:16:05 EST 2019. High traffic generated an alert - hits = 10, triggered at time Thu Feb 07 16:16:05 EST 2019
+Thu Feb 07 16:16:10 EST 2019. Section hit (top 3): (api - 249), (report - 30)
+Thu Feb 07 16:16:20 EST 2019. Section hit (top 3): (api - 251), (report - 30)
+Thu Feb 07 16:16:30 EST 2019. Section hit (top 3): (api - 250), (report - 30)
+Thu Feb 07 16:16:40 EST 2019. Section hit (top 3): (api - 251), (report - 30)
+Thu Feb 07 16:16:50 EST 2019. Section hit (top 3): (api - 269), (report - 30)
+Thu Feb 07 16:17:00 EST 2019. Section hit (top 3): (api - 228), (report - 30)
+Thu Feb 07 16:17:04 EST 2019. RemoteHost: 10.0.0.2 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:17:04 EST 2019
+Thu Feb 07 16:17:06 EST 2019. RemoteHost: 10.0.0.1 - High traffic alert recovered - hits = 4, recovered at time Thu Feb 07 16:17:06 EST 2019
+Thu Feb 07 16:17:07 EST 2019. RemoteHost: 10.0.0.5 - High traffic alert recovered - hits = 2, recovered at time Thu Feb 07 16:17:07 EST 2019
+Thu Feb 07 16:17:11 EST 2019. Section hit (top 3): (api - 35), (report - 13)
+Thu Feb 07 16:17:21 EST 2019. Section hit (top 3): (report - 11), (api - 11)
+Thu Feb 07 16:17:31 EST 2019. Section hit (top 3): (api - 10), (report - 9)
+Thu Feb 07 16:17:41 EST 2019. Section hit (top 3): (report - 11), (api - 11)
+Thu Feb 07 16:17:51 EST 2019. Section hit (top 3): (report - 10), (api - 9)
+Thu Feb 07 16:18:01 EST 2019. Section hit (top 3): (report - 10), (api - 10)
+Thu Feb 07 16:18:11 EST 2019. Section hit (top 3): (api - 10), (report - 9)
+Thu Feb 07 16:18:21 EST 2019. Section hit (top 3): (report - 10), (api - 10)
+Thu Feb 07 16:18:25 EST 2019. High traffic alert recovered - hits = 9, recovered at time Thu Feb 07 16:18:25 EST 2019
+Thu Feb 07 16:18:31 EST 2019. Section hit (top 3): (report - 10), (api - 9)
+Thu Feb 07 16:18:38 EST 2019. High total bytes alert recovered - traffic = 0.9840154647827148 Mb, recovered at time Thu Feb 07 16:18:38 EST 2019
+Thu Feb 07 16:18:41 EST 2019. Section hit (top 3): (report - 11), (api - 11)
+Thu Feb 07 16:18:52 EST 2019. Section hit (top 3): (api - 11), (report - 10)

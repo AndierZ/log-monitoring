@@ -12,12 +12,13 @@ public class SectionHitsMonitor extends RankedFixedStatsMonitor<LogEntryParser> 
 
     /**
      * Increment the count using Section as the key
+     *
      * @param parser
      * @return
      */
     @Override
     protected boolean increment(LogEntryParser parser) {
-        hits.put(parser.getSection(), hits.getOrDefault(parser.getSection(), 0) + 1);
+        this.hits.put(parser.getSection(), hits.getOrDefault(parser.getSection(), 0) + 1);
         return true;
     }
 

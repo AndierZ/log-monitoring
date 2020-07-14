@@ -64,7 +64,7 @@ public class SectionHitsMonitorTest {
     }
 
     private static long sendMessages(long timestamp, String section, int count, int interval, SectionHitsMonitor monitor, MutableLogEntryParser msg) {
-        for(int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             msg.setTimestamp(timestamp);
             msg.setSection(section);
             monitor.onMsg(msg);

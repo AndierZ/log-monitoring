@@ -93,7 +93,7 @@ public class LogEntryBuilder {
         len += appendString(method, buf);
         len += appendString(route, buf);
         buf.putInt(0, len);
-        this.buf.flip();
+        buf.flip();
         out.write(buf.array(), 0, buf.limit());
     }
 

@@ -67,7 +67,7 @@ public class TotalHitsByRemoteHostMonitorTest {
     }
 
     private static long sendMessages(long timestamp, String remoteHost, int count, int interval, TotalHitsByRemoteHostMonitor monitor, MutableLogEntryParser msg) {
-        for(int i=0; i<count; i++) {
+        for (int i = 0; i < count; i++) {
             msg.setTimestamp(timestamp);
             msg.setRemoteHost(remoteHost);
             monitor.onMsg(msg);

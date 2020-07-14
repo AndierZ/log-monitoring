@@ -14,7 +14,7 @@ public class Constants {
     public final static String MONITOR_LIST = "monitor_list";
     public final static String MAX_DISPLAY_COUNT = "max_display_count";
     public final static String INTERVAL_SECS = "interval_secs";
-    public final static String PERIOD_SECS= "period_secs";
+    public final static String PERIOD_SECS = "period_secs";
     public final static String THRESHOLD = "threshold";
-    public final static String DEADBAND_SECS= "deadband_secs";
+    public final static String DEADBAND_SECS = "deadband_secs";
 }
