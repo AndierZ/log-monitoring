@@ -16,7 +16,7 @@ public abstract class SingleStatsMonitor<T extends MessageParser> extends StatsM
         super(context, config);
     }
 
-    abstract protected boolean increment(T parser);
+    abstract protected boolean increment(long timestamp, T parser);
 
     abstract protected String alertName();
 }

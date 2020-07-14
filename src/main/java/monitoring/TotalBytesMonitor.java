@@ -20,8 +20,8 @@ public class TotalBytesMonitor extends RollingStatsMonitor<LogEntryParser> {
     }
 
     @Override
-    protected boolean increment(LogEntryParser parser) {
-        return counter.increment(parser.getTimestamp(), parser.getBytes());
+    protected boolean increment(long timestamp, LogEntryParser parser) {
+        return counter.increment(timestamp, parser.getBytes());
     }
 
     @Override

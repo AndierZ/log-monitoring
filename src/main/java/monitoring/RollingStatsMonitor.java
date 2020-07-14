@@ -30,6 +30,7 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
      */
     private String prefix;
     private long lastActivationTime;
+    private long curTimestamp;
 
     public RollingStatsMonitor(Context context, JSONObject config) {
         super(context, config);
@@ -61,8 +62,8 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
     abstract protected String formatCounterVal();
 
     public void onMsg(T parser) {
-        long timestamp = parser.getTimestamp();
-        boolean updated = increment(parser);
+        curTimestamp = Math.max(curTimestamp, parser.getTimestamp());
+        boolean updated = increment(curTimestamp, parser);
         if (!updated) {
             return;
         }
@@ -72,27 +73,27 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                 // Raise alert if haven't already
                 if (lastActivationTime == 0) {
                     sb.setLength(0);
-                    sb.append(new Date(timestamp));
+                    sb.append(new Date(curTimestamp));
                     sb.append(". ");
                     if (prefix != null) sb.append(prefix).append(" - ");
                     sb.append(alertName());
                     sb.append(" generated an alert - ");
                     sb.append(formatCounterVal());
-                    sb.append(", triggered at time ").append(new Date(timestamp));
+                    sb.append(", triggered at time ").append(new Date(curTimestamp));
                     context.out.alertSink.accept(sb.toString());
-                    lastActivationTime = timestamp;
+                    lastActivationTime = curTimestamp;
                 }
             } else {
                 // Reset alert if traffic has dropped and it's been more than one second
-                if (lastActivationTime > 0 && timestamp - lastActivationTime >= deadband) {
+                if (lastActivationTime > 0 && curTimestamp - lastActivationTime >= deadband) {
                     sb.setLength(0);
-                    sb.append(new Date(timestamp));
+                    sb.append(new Date(curTimestamp));
                     sb.append(". ");
                     if (prefix != null) sb.append(prefix).append(" - ");
                     sb.append(alertName());
                     sb.append(" alert recovered - ");
                     sb.append(formatCounterVal());
-                    sb.append(", recovered at time ").append(new Date(timestamp));
+                    sb.append(", recovered at time ").append(new Date(curTimestamp));
                     context.out.alertSink.accept(sb.toString());
                     lastActivationTime = 0;
                 }

@@ -18,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public abstract class RankedFixedStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {
 
     private long prevTimestamp;
+    private long curTimestamp;
     private final long interval;
     private final int maxDisplayCount;
     private final StringBuilder sb = new StringBuilder();
@@ -30,15 +31,16 @@ public abstract class RankedFixedStatsMonitor<T extends MessageParser> extends S
     }
 
     public void onMsg(T parser) {
-        long timestamp = parser.getTimestamp();
+        // FIXME better deal with timestamps that are out of order
+        curTimestamp = Math.max(curTimestamp, parser.getTimestamp());
         if (prevTimestamp == 0) {
-            prevTimestamp = timestamp;
-        } else if (timestamp - prevTimestamp >= interval) {
+            prevTimestamp = curTimestamp;
+        } else if (curTimestamp - prevTimestamp >= interval) {
             List<Map.Entry<String, Integer>> entries = new ArrayList<>(hits.entrySet());
             entries.sort((a, b) -> b.getValue() - a.getValue());
 
             sb.setLength(0);
-            sb.append(new Date(timestamp));
+            sb.append(new Date(curTimestamp));
             sb.append(". ");
 
             if (entries.isEmpty()) {
@@ -60,8 +62,8 @@ public abstract class RankedFixedStatsMonitor<T extends MessageParser> extends S
             context.out.alertSink.accept(sb.substring(0, sb.length()-1));
 
             hits.clear();
-            prevTimestamp = timestamp;
+            prevTimestamp = curTimestamp;
         }
-        increment(parser);
+        increment(curTimestamp, parser);
     }
 }

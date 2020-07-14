@@ -17,7 +17,7 @@ public class SectionHitsMonitor extends RankedFixedStatsMonitor<LogEntryParser> 
      * @return
      */
     @Override
-    protected boolean increment(LogEntryParser parser) {
+    protected boolean increment(long timestamp, LogEntryParser parser) {
         this.hits.put(parser.getSection(), hits.getOrDefault(parser.getSection(), 0) + 1);
         return true;
     }

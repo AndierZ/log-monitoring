@@ -11,8 +11,8 @@ public class TotalHitsMonitor extends RollingStatsMonitor<LogEntryParser> {
     }
 
     @Override
-    protected boolean increment(LogEntryParser parser) {
-        return counter.increment(parser.getTimestamp());
+    protected boolean increment(long timestamp, LogEntryParser parser) {
+        return counter.increment(timestamp);
     }
 
     @Override
