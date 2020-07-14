@@ -4,7 +4,11 @@ import common.Context;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
+import java.text.DecimalFormat;
+
 public class TotalBytesMonitor extends RollingStatsMonitor<LogEntryParser> {
+
+    private static DecimalFormat DF = new DecimalFormat("#0.00");
 
     public TotalBytesMonitor(Context context, JSONObject config) {
         super(context, config);
@@ -16,7 +20,7 @@ public class TotalBytesMonitor extends RollingStatsMonitor<LogEntryParser> {
     }
 
     protected String formatCounterVal() {
-        return "traffic = " + getCounterVal() / 1024 / 1024 + " Mb";
+        return "traffic = " + DF.format(getCounterVal() / 1024 / 1024) + " Mb";
     }
 
     @Override
