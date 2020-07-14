@@ -2,8 +2,6 @@ package common;
 
 import org.json.simple.JSONObject;
 
-import java.util.function.Consumer;
-
 public class DevContext extends Context {
 
     public DevContext(JSONObject config) {
@@ -11,7 +9,7 @@ public class DevContext extends Context {
     }
 
     @Override
-    public Consumer<String> getOutputSink() {
-        return System.out::println;
+    protected OutputCollection createOutputs() {
+        return new OutputCollection(System.out::println);
     }
 }

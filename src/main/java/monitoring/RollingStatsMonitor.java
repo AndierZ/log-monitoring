@@ -79,7 +79,7 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                     sb.append(" generated an alert - ");
                     sb.append(formatCounterVal());
                     sb.append(", triggered at time ").append(new Date(timestamp));
-                    context.getOutputSink().accept(sb.toString());
+                    context.out.alertSink.accept(sb.toString());
                     this.lastActivationTime = timestamp;
                 }
             } else {
@@ -93,7 +93,7 @@ public abstract class RollingStatsMonitor<T extends MessageParser> extends Singl
                     sb.append(" alert recovered - ");
                     sb.append(formatCounterVal());
                     sb.append(", recovered at time ").append(new Date(timestamp));
-                    context.getOutputSink().accept(sb.toString());
+                    context.out.alertSink.accept(sb.toString());
                     this.lastActivationTime = 0;
                 }
             }

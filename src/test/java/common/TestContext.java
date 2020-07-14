@@ -4,7 +4,6 @@ import org.json.simple.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 public class TestContext extends Context {
 
@@ -15,11 +14,11 @@ public class TestContext extends Context {
     }
 
     @Override
-    public Consumer<String> getOutputSink() {
-        return this::output;
+    protected OutputCollection createOutputs() {
+        return new OutputCollection(this::output);
     }
 
-    public void output(String s) {
+    private void output(String s) {
         outputs.add(s);
     }
 

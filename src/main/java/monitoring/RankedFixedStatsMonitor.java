@@ -57,7 +57,7 @@ public abstract class RankedFixedStatsMonitor<T extends MessageParser> extends S
                 }
             }
 
-            context.getOutputSink().accept(sb.substring(0, sb.length()-1));
+            context.out.alertSink.accept(sb.substring(0, sb.length()-1));
 
             this.hits.clear();
             prevTimestamp = timestamp;

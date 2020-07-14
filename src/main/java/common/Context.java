@@ -13,15 +13,26 @@ import java.util.function.Consumer;
  */
 public abstract class Context {
 
+    public final OutputCollection out;
+
     protected final JSONObject config;
 
     public Context(JSONObject config) {
         this.config = config;
+        this.out = createOutputs();
     }
+
+    abstract protected OutputCollection createOutputs();
 
     public JSONObject getConfig() {
         return config;
     }
 
-    abstract public Consumer<String> getOutputSink();
+    public class OutputCollection {
+        public final Consumer<String> alertSink;
+
+        OutputCollection(Consumer<String> alertSink) {
+            this.alertSink = alertSink;
+        }
+    }
 }
