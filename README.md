@@ -76,6 +76,6 @@ Project is largely comprised of three parts
 - Run with the jar
   - Open terminal and go to the project directory
   - ``` ./gradlew shadowJar```
-  - Modify the ```log_reader_app.json``` file in the resource folder. Remove ```"log_files_in_resource": true```, and update ```log_files``` to point to the absolute path of the log file to be parsed
+  - Modify the ```src/main/resources/config/log_reader_app.json``` file in the resource folder. Remove ```"log_files_in_resource": true```, and update ```log_files``` to point to the absolute path of the log file to be parsed
   - ```java -jar build/libs/shadow-jar-1.0-SNAPSHOT.jar apps.consumer.ConsoleAlertingApp ./src/main/resources/config/console_alerting_app.json```
   - ```java -jar build/libs/shadow-jar-1.0-SNAPSHOT.jar apps.producer.LogReaderApp ./src/main/resources/config/log_reader_app.json```
