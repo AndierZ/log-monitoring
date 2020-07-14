@@ -10,25 +10,25 @@
         "period_secs" : 120,
         "interval_secs" : 1,
         "threshold" : 10,
-        "deadband_secs" : 1
+        "deadband_secs" : 0
       },
       "monitoring.TotalBytesMonitor": {
         "period_secs" : 120,
         "interval_secs" : 1,
         "threshold" : 1048576,
-        "deadband_secs" : 1
+        "deadband_secs" : 0
       },
       "monitoring.AverageHitsByRemoteHostMonitor": {
         "period_secs" : 10,
         "interval_secs" : 1,
-        "threshold" : 5,
-        "deadband_secs" : 1
+        "threshold" : 10,
+        "deadband_secs" : 0
       },
       "monitoring.AverageHitsBySectionMonitor": {
       "period_secs" : 10,
       "interval_secs" : 1,
-      "threshold" : 15,
-      "deadband_secs" : 1
+      "threshold" : 10,
+      "deadband_secs" : 0
       }
    }
 }
