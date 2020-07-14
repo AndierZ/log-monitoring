@@ -21,7 +21,7 @@ Application for log monitoring and alert generation.
 - Be as memory efficient as possible, for example, by avoiding creating new objects for each log message
 
 # Code structure
-Project is largely comprised of two parts
+Project is largely comprised of three parts
 - LogReaderApp (producer): Gets all log files and creates MessageDistributionThread for each file 
   - MessageDistributionThread: Parses the file and passes each line to LogEntrySender
     - LogEntrySender: Converts line to binary message and sends to the output stream
@@ -35,6 +35,7 @@ Project is largely comprised of two parts
   - AverageHitsByRemoteHostMonitor: Keeps track of the average hits per second by remote host over a 10s rolling window. Alerts if exceeds 10 hits per second.
   - TotalBytesMonitor: Keeps track of the total bytes over a 120s rolling window. Alerts if it exceeds 1Mb
   - RankedSectionHitsMonitor: Checks every 60s and prints the top 3 sections with most hits for the preceding 60s interval.
+
 # Maintainability and Scalability
 - Adding new alerts
   - New module can be added by sub-classing one of the super classes
