@@ -29,7 +29,12 @@ Project is largely comprised of two parts
   - MessageProcessingThread: Parses binary message into readable objects and passes on to MessageHandler
     - MessageHandler: Routes each message through a list of <? extends StatsMonitor>
       - <? extends StatsMonitor>: Modules with business logic for generating alerts
-
+- Implemented alerts:
+  - AverageHitsMonitor: Keeps track of the average hits per second over a 120s rolling window. Alerts if exceeds 10 hits per second.
+  - AverageHitsBySectionMonitor: Keeps track of the average hits per second by section over a 10s rolling window. Alerts if exceeds 15 hits per second.
+  - AverageHitsByRemoteHostMonitor: Keeps track of the average hits per second by remote host over a 10s rolling window. Alerts if exceeds 5 hits per second.
+  - TotalBytesMonitor: Keeps track of the total bytes over a 120s rolling window. Alerts if it exceeds 1Mb
+  - RankedSectionHitsMonitor: Checks every 60s and prints the top 3 sections with most hits for the preceding 60s interval.
 # Maintainability and Scalability
 - Adding new alerts
   - New module can be added by sub-classing one of the super classes
