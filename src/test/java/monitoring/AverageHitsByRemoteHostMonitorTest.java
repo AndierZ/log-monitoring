@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TotalHitsByRemoteHostMonitorTest {
+public class AverageHitsByRemoteHostMonitorTest {
 
     @Test
     public void test1() {
@@ -16,7 +16,7 @@ public class TotalHitsByRemoteHostMonitorTest {
         config.put("threshold", 10l);
         config.put("deadband_secs", 1l);
         TestContext context = new TestContext(null);
-        TotalHitsByRemoteHostMonitor monitor = new TotalHitsByRemoteHostMonitor(context, config);
+        AverageHitsByRemoteHostMonitor monitor = new AverageHitsByRemoteHostMonitor(context, config);
 
         long timestamp1 = 10_000;
         MutableLogEntryParser msg = new MutableLogEntryParser();
@@ -66,7 +66,7 @@ public class TotalHitsByRemoteHostMonitorTest {
         Assert.assertEquals(alert, context.getLastAlert());
     }
 
-    private static long sendMessages(long timestamp, String remoteHost, int count, int interval, TotalHitsByRemoteHostMonitor monitor, MutableLogEntryParser msg) {
+    private static long sendMessages(long timestamp, String remoteHost, int count, int interval, AverageHitsByRemoteHostMonitor monitor, MutableLogEntryParser msg) {
         for (int i = 0; i < count; i++) {
             msg.setTimestamp(timestamp);
             msg.setRemoteHost(remoteHost);

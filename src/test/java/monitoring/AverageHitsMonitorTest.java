@@ -6,7 +6,7 @@ import org.json.simple.JSONObject;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class TotalHitsMonitorTest {
+public class AverageHitsMonitorTest {
 
     @Test
     public void test1() {
@@ -16,7 +16,7 @@ public class TotalHitsMonitorTest {
         config.put("threshold", 10l);
         config.put("deadband_secs", 1l);
         TestContext context = new TestContext(null);
-        TotalHitsMonitor monitor = new TotalHitsMonitor(context, config);
+        AverageHitsMonitor monitor = new AverageHitsMonitor(context, config);
 
         long timestamp = 10_000;
         MutableLogEntryParser msg = new MutableLogEntryParser();
@@ -53,7 +53,7 @@ public class TotalHitsMonitorTest {
         Assert.assertEquals(alert, context.getLastAlert());
     }
 
-    private static long sendMessages(long timestamp, int count, int interval, TotalHitsMonitor monitor, MutableLogEntryParser msg) {
+    private static long sendMessages(long timestamp, int count, int interval, AverageHitsMonitor monitor, MutableLogEntryParser msg) {
         for (int i = 0; i < count; i++) {
             msg.setTimestamp(timestamp);
             monitor.onMsg(msg);

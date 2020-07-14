@@ -2,11 +2,7 @@
   "port": 12088,
   "monitor_list" :
     {
-      "monitoring.SectionHitsMonitor": {
-        "interval_secs" : 10,
-        "max_display_count" : 3
-      },
-      "monitoring.TotalHitsMonitor": {
+      "monitoring.AverageHitsMonitor": {
         "period_secs" : 120,
         "interval_secs" : 1,
         "threshold" : 10,
@@ -18,11 +14,17 @@
         "threshold" : 1048576,
         "deadband_secs" : 1
       },
-      "monitoring.TotalHitsByRemoteHostMonitor": {
+      "monitoring.AverageHitsByRemoteHostMonitor": {
         "period_secs" : 10,
         "interval_secs" : 1,
         "threshold" : 5,
         "deadband_secs" : 1
+      },
+      "monitoring.AverageHitsBySectionMonitor": {
+      "period_secs" : 10,
+      "interval_secs" : 1,
+      "threshold" : 15,
+      "deadband_secs" : 1
       }
-    }
+   }
 }

@@ -4,15 +4,18 @@ import common.Context;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
-public class TotalHitsByRemoteHostMonitor extends KeyedRollingStatsMonitor<LogEntryParser> {
+/**
+ * Keeps track of average hits by remote host over a rolling window and generates alerts if above certain threshold
+ */
+public class AverageHitsByRemoteHostMonitor extends KeyedRollingStatsMonitor<LogEntryParser> {
 
-    public TotalHitsByRemoteHostMonitor(Context context, JSONObject config) {
+    public AverageHitsByRemoteHostMonitor(Context context, JSONObject config) {
         super(context, config);
     }
 
     @Override
     protected RollingStatsMonitor newRollingStatsMonitor(String key) {
-        TotalHitsMonitor m = new TotalHitsMonitor(context, config);
+        AverageHitsMonitor m = new AverageHitsMonitor(context, config);
         m.setPrefix("RemoteHost: " + key);
         return m;
     }

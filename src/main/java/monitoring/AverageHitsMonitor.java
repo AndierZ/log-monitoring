@@ -4,9 +4,12 @@ import common.Context;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
-public class TotalHitsMonitor extends RollingStatsMonitor<LogEntryParser> {
+/**
+ * Keeps track of average hits over a rolling window generates alerts if above certain threshold
+ */
+public class AverageHitsMonitor extends RollingStatsMonitor<LogEntryParser> {
 
-    public TotalHitsMonitor(Context context, JSONObject config) {
+    public AverageHitsMonitor(Context context, JSONObject config) {
         super(context, config);
     }
 

@@ -10,9 +10,8 @@ import java.util.concurrent.TimeUnit;
 
 
 /**
- * Checks metric at regular fixed interval
- * Rank the metrics based on the key specified by the implementing class
- * Outputs top metrics
+ * Keeps track of metric over regular fixed interval
+ * Generates alerts by ranking the metrics based on the key specified by the implementing class
  * @param <T>
  */
 public abstract class RankedFixedStatsMonitor<T extends MessageParser> extends SingleStatsMonitor<T> {

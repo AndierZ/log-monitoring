@@ -6,6 +6,9 @@ import org.json.simple.JSONObject;
 
 import java.text.DecimalFormat;
 
+/**
+ * Keeps track of total bytes over a rolling window and generates alerts if above certain threshold
+ */
 public class TotalBytesMonitor extends RollingStatsMonitor<LogEntryParser> {
 
     private static DecimalFormat DF = new DecimalFormat("#0.00");

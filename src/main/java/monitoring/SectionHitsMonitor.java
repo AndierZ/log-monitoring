@@ -4,6 +4,9 @@ import common.Context;
 import msgs.LogEntryParser;
 import org.json.simple.JSONObject;
 
+/**
+ * Keeps track of hits by section over fixed period of time and prints sections with top hits
+ */
 public class SectionHitsMonitor extends RankedFixedStatsMonitor<LogEntryParser> {
 
     public SectionHitsMonitor(Context context, JSONObject config) {
